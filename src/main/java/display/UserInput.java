@@ -18,13 +18,13 @@ public class UserInput {
 
             while(!rightInput) {
                 // months needs to be > 0 centres > 0 && <= 2
-                if((input.equals("months") ? number > 0: number > 0 && number <= 2)) {
+                if((chooseInput ? number > 0: number > 0 && number <= 2)) {
                     return number;
                 } else {
                     System.out.println("you need to enter a number > 0 " +
-                            (input.equals("months") ? "": "and <= 2"));
+                            (chooseInput ? "": "and <= 2"));
                 }
-                System.out.println("choose how many " + (input.equals("months") ?
+                System.out.println("choose how many " + (chooseInput ?
                         "months you want to simulate": "centres you want to open every 2 months"));
                 number = scanner.nextInt();
             }
