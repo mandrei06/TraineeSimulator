@@ -14,7 +14,7 @@ public class GenerateRandomNumberTest {
 
     @Test
     public void testGenerate50() {
-        int number = generate.generateRandom50();
+        int number = generate.generateRandomNumber(51);
         boolean expected = false;
         if(number >= 0 && number <= 50) {
             expected = true;
@@ -24,7 +24,7 @@ public class GenerateRandomNumberTest {
 
     @Test
     public void testGenerate100() {
-        int number = generate.generateRandom50();
+        int number = generate.generateRandomNumber(101);
         boolean expected = false;
         if(number >= 0 && number <= 100) {
             expected = true;
