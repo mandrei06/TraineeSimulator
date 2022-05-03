@@ -36,7 +36,7 @@ public class UserInput {
             boolean rightInput = false;
 
             while(!rightInput) {
-                if(centres > 0) {
+                if(centres > 0 && centres <= 2) {
                     return centres;
                 } else {
                     System.out.println("you need to enter a number of centres > 0");
