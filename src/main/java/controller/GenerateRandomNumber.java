@@ -3,22 +3,11 @@ package controller;
 import java.util.Random;
 
 public class GenerateRandomNumber {
-    public int generateRandom50() {
+    public int generateRandomNumber(int numberArg) {
         int number = 0;
         try {
             Random rand = new Random();
-            number = rand.nextInt(51);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return number;
-    }
-
-    public int generateRandom100() {
-        int number = 0;
-        try {
-            Random rand = new Random();
-            number = rand.nextInt(101);
+            number = rand.nextInt(numberArg);
         } catch (Exception e) {
             e.printStackTrace();
         }
