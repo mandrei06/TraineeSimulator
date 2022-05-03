@@ -25,3 +25,4 @@ public class GenerateRandomNumber {
         return number;
     }
 }
+//test
