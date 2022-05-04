@@ -20,7 +20,7 @@ public class WaitingList {
     public List<Trainee> deleteJavaWaitingList(int javaDevToRemove, List<Trainee> javaWaitingList)
     {
         try {
-            for(int i = 0; i <= javaDevToRemove; i++) {
+            for(int i = 0; i < javaDevToRemove; i++) {
                 javaWaitingList.remove(i);
             }
         } catch (Exception e) {

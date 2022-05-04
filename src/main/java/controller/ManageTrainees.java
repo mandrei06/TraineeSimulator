@@ -41,6 +41,8 @@ public class ManageTrainees {
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
             System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
             // maximum number of java dev that can be placed
+            // this variable will be used later so that we can update the new hires
+            // and put them into a waiting list
             int maximumNumberJavaDevPlaced = traineesGoingIntoEachCentre * trainingCentres.size();
             System.out.println(maximumNumberJavaDevPlaced + " can go into centres");
 
@@ -53,6 +55,8 @@ public class ManageTrainees {
                         traineesGoingIntoEachCentre <= javaTraineesWaiting.size()) {
                     System.out.println("old capacity: " + trainingCentre.getCapacity());
 
+                    // if the centre is about to get full we full it
+                    // and put the remaining into a waiting list
                     if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
                         int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
                         traineesGoingIntoEachCentre = trainingCentreCapacity;
@@ -65,12 +69,16 @@ public class ManageTrainees {
 
                     trainingCentre.setCapacity(trainingCentreCapacity -
                             traineesGoingIntoEachCentre);
+
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
+                    // deleting java devs from waiting list
                     wl.deleteJavaWaitingList(traineesGoingIntoEachCentre, javaTraineesWaiting);
                     System.out.println("javaTraineesWaiting.size() " + javaTraineesWaiting.size());
                 } else if (traineesGoingIntoEachCentre > javaTraineesWaiting.size()) {
                     System.out.println("old capacity: " + trainingCentre.getCapacity());
 
+                    // if the centre is about to get full we full it
+                    // and put the remaining into a waiting list
                     if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
                         int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
                         traineesGoingIntoEachCentre = trainingCentreCapacity;
@@ -86,12 +94,15 @@ public class ManageTrainees {
                     int numberJavaToDeleteFromWaiting = traineesGoingIntoEachCentre -
                             javaTraineesWaiting.size();
 
+                    // deleting from waiting list
                     if(numberJavaToDeleteFromWaiting > 1) {
                         wl.deleteJavaWaitingList(
                                 numberJavaToDeleteFromWaiting, javaTraineesWaiting);
                     }
 
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
+
+                    // updating new java hires so that we can put them into waiting list
                     newJavaHires -= maximumNumberJavaDevPlaced - numberJavaToDeleteFromWaiting;
                 }
             }
