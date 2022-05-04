@@ -6,8 +6,10 @@ public class Manager {
     public void start() {
         try {
             UserInput input = new UserInput();
-            input.askInput("months");
-            input.askInput("centres");
+            int months = input.askInput("months");
+            int centres = input.askInput("centres");
+            ManageTrainees mt = new ManageTrainees();
+            mt.manageTrainees(months, centres);
         } catch (Exception e) {
             e.printStackTrace();
         }

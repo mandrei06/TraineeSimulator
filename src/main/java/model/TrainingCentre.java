@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class TrainingCentre {
     private int capacity = 100;
     private boolean closed = false;
@@ -33,5 +37,16 @@ public class TrainingCentre {
         this.capacity = capacity;
         this.closed = closed;
         this.course = course;
+    }
+
+    public List<TrainingCentre> storeTrainingCentres(TrainingCentre trainingCentre) {
+        List<TrainingCentre> trainingCentres = new ArrayList();
+
+        try {
+            trainingCentres.add(trainingCentre);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trainingCentres;
     }
 }
