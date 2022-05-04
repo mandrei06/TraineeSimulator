@@ -14,6 +14,14 @@ public class TrainingCentre {
     private String course;
     private int months;
 
+    public int getMonths() {
+        return months;
+    }
+
+    public void setMonths(int months) {
+        this.months = months;
+    }
+
     public List<TrainingCentre> getTrainingCentres() {
         return trainingCentres;
     }
