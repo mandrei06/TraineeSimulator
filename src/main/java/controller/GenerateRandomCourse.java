@@ -15,7 +15,6 @@ public class GenerateRandomCourse {
             GenerateRandomNumber gn = new GenerateRandomNumber();
             int randomNumber = gn.generateRandomNumber(0, 5);
             str = courses[randomNumber];
-            System.out.println("str " + str);
         } catch (Exception e) {
             e.printStackTrace();
         }
