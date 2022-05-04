@@ -2,8 +2,12 @@ package model;
 
 import controller.GenerateRandomCourse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Trainee {
     private String course;
+    private List<Trainee> trainees = new ArrayList();
 
     public Trainee(String course) {
         this.course = course;
@@ -17,6 +21,10 @@ public class Trainee {
         this.course = course;
     }
 
+    public List<Trainee> getTrainees() {
+        return trainees;
+    }
+
     public Trainee generateTrainee() {
         Trainee trainee = null;
         try {
@@ -24,6 +32,7 @@ public class Trainee {
             GenerateRandomCourse gc = new GenerateRandomCourse();
             String course = gc.generateRandomCourse();
             trainee = new Trainee(course);
+            this.trainees.add(trainee);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -7,8 +7,8 @@ public class Manager {
         try {
             UserInput input = new UserInput();
             int months = input.askMonths();
-            //ManageTrainees mt = new ManageTrainees();
-            //mt.manageTrainees(months);
+            ManageTrainees mt = new ManageTrainees();
+            mt.manageTrainees(months);
         } catch (Exception e) {
             e.printStackTrace();
         }

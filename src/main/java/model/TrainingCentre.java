@@ -10,8 +10,9 @@ import java.util.List;
 public class TrainingCentre {
     private List<TrainingCentre> trainingCentres = new ArrayList();
     private int capacity;
-    private boolean closed = false;
+    private boolean closed;
     private String course;
+    private int months;
 
     public List<TrainingCentre> getTrainingCentres() {
         return trainingCentres;
@@ -41,19 +42,19 @@ public class TrainingCentre {
         this.closed = closed;
     }
 
-    public TrainingCentre(int capacity, boolean closed, String course) {
+    public TrainingCentre(int capacity, boolean closed, String course, int months) {
         this.capacity = capacity;
         this.closed = closed;
         this.course = course;
+        this.months = months;
     }
 
-    public List<TrainingCentre> storeTrainingCentres(TrainingCentre trainingCentre) {
+    public void storeTrainingCentres(TrainingCentre trainingCentre) {
         try {
             this.trainingCentres.add(trainingCentre);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this.trainingCentres;
     }
 
     public TrainingCentre generateTrainingCentre() {
@@ -61,21 +62,30 @@ public class TrainingCentre {
         try {
             // generating a random number so that we can generate a random training centre
             GenerateRandomNumber gn = new GenerateRandomNumber();
-            int randomNumber = gn.generateRandomNumber(0, 3);
+            int randomNumber = gn.generateRandomNumber(0, 2);
 
             switch (randomNumber) {
                 case 0 -> {
                     trainingCentre = new BootCamp(500, false,
-                            "any", 0);
+                            "any", 1);
+                    this.storeTrainingCentres(trainingCentre);
                 }
                 case 1 -> {
-                    trainingCentre = new TrainingHub(100, false, "any");
+                    // generating a random number between 1 and 3 in order to generate
+                    // between 1 and 3 training hub
+                    int randomNumberHub = gn.generateRandomNumber(1, 4);
+                    for(int i = 1; i <= randomNumberHub; i++) {
+                     trainingCentre = new TrainingHub(100,
+                             false, "any", 1);
+                     this.storeTrainingCentres(trainingCentre);
+                    }
                 }
                 case 2 -> {
                     // generating random course which will be assigned to the TechCentre
                     GenerateRandomCourse gc = new GenerateRandomCourse();
                     String course = gc.generateRandomCourse();
-                    trainingCentre = new TechCentre(200, false, course);
+                    trainingCentre = new TechCentre(200, false, course, 1);
+                    this.storeTrainingCentres(trainingCentre);
                 }
             }
         } catch (Exception e) {
