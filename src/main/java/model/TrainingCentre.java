@@ -75,7 +75,7 @@ public class TrainingCentre {
             switch (randomNumber) {
                 case 0 -> {
                     trainingCentre = new BootCamp(500, false,
-                            "any", 1);
+                            "any", 0);
                     this.storeTrainingCentres(trainingCentre);
                 }
                 case 1 -> {
@@ -84,7 +84,7 @@ public class TrainingCentre {
                     int randomNumberHub = gn.generateRandomNumber(1, 4);
                     for(int i = 1; i <= randomNumberHub; i++) {
                      trainingCentre = new TrainingHub(100,
-                             false, "any", 1);
+                             false, "any", 0);
                      this.storeTrainingCentres(trainingCentre);
                     }
                 }
@@ -92,7 +92,7 @@ public class TrainingCentre {
                     // generating random course which will be assigned to the TechCentre
                     GenerateRandomCourse gc = new GenerateRandomCourse();
                     String course = gc.generateRandomCourse();
-                    trainingCentre = new TechCentre(200, false, course, 1);
+                    trainingCentre = new TechCentre(200, false, course, 0);
                     this.storeTrainingCentres(trainingCentre);
                 }
             }
