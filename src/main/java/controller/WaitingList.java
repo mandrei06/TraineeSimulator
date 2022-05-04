@@ -17,12 +17,11 @@ public class WaitingList {
         return this.javaWaitingList;
     }
 
-    public List<Trainee> deleteJavaWaitingList(int javaDevToRemove, List<Trainee> javaWaitingList)
+    public List<Trainee> deleteJavaWaitingList(List<Trainee> javaWaitingList)
     {
         try {
-            for(int i = 0; i < javaDevToRemove; i++) {
-                javaWaitingList.remove(i);
-            }
+                javaWaitingList.remove(0);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

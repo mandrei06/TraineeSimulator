@@ -72,7 +72,15 @@ public class ManageTrainees {
 
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
                     // deleting java devs from waiting list
-                    wl.deleteJavaWaitingList(traineesGoingIntoEachCentre, javaTraineesWaiting);
+                    if(traineesGoingIntoEachCentre > 0) {
+                        System.out.println("if size " + javaTraineesWaiting.size());
+                        System.out.println("if train " + traineesGoingIntoEachCentre);
+
+                        for(int j = 0; j < traineesGoingIntoEachCentre; j++) {
+                            wl.deleteJavaWaitingList(javaTraineesWaiting);
+                        }
+                        System.out.println("if size2 " + javaTraineesWaiting.size());
+                    }
                     System.out.println("javaTraineesWaiting.size() " + javaTraineesWaiting.size());
                 } else if (traineesGoingIntoEachCentre > javaTraineesWaiting.size()) {
                     System.out.println("old capacity: " + trainingCentre.getCapacity());
@@ -95,9 +103,14 @@ public class ManageTrainees {
                             javaTraineesWaiting.size();
 
                     // deleting from waiting list
-                    if(numberJavaToDeleteFromWaiting > 1) {
-                        wl.deleteJavaWaitingList(
-                                numberJavaToDeleteFromWaiting, javaTraineesWaiting);
+                    if(numberJavaToDeleteFromWaiting > 0) {
+                        System.out.println("if size " + javaTraineesWaiting.size());
+                        System.out.println("if train " + traineesGoingIntoEachCentre);
+
+                        for(int j = 0; j < numberJavaToDeleteFromWaiting; j++) {
+                            wl.deleteJavaWaitingList(javaTraineesWaiting);
+                        }
+                        System.out.println("if size2 " + javaTraineesWaiting.size());
                     }
 
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
