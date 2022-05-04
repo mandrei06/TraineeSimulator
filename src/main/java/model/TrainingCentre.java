@@ -1,5 +1,8 @@
 package model;
 
+import controller.GenerateRandomCourse;
+import controller.GenerateRandomNumber;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,5 +54,33 @@ public class TrainingCentre {
             e.printStackTrace();
         }
         return this.trainingCentres;
+    }
+
+    public TrainingCentre generateTrainingCentre() {
+        TrainingCentre trainingCentre = null;
+        try {
+            // generating a random number so that we can generate a random training centre
+            GenerateRandomNumber gn = new GenerateRandomNumber();
+            int randomNumber = gn.generateRandomNumber(0, 3);
+
+            switch (randomNumber) {
+                case 0 -> {
+                    trainingCentre = new BootCamp(500, false,
+                            "any", 0);
+                }
+                case 1 -> {
+                    trainingCentre = new TrainingHub(100, false, "any");
+                }
+                case 2 -> {
+                    // generating random course which will be assigned to the TechCentre
+                    GenerateRandomCourse gc = new GenerateRandomCourse();
+                    String course = gc.generateRandomCourse();
+                    trainingCentre = new TechCentre(200, false, course);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trainingCentre;
     }
 }

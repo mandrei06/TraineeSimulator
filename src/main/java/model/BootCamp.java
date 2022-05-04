@@ -15,15 +15,4 @@ public class BootCamp extends TrainingCentre {
         super(capacity, closed, course);
         this.months = months;
     }
-
-    public BootCamp generateBootCamp() {
-        BootCamp bootCamp = null;
-
-        try {
-            bootCamp = new BootCamp(500, false, "any", 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bootCamp;
-    }
 }

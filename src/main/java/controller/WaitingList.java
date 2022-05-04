@@ -49,7 +49,7 @@ public class WaitingList {
         return businessWaitingList;
     }
 
-    public List<Trainee> getPrioritybusinessWaitingList() {
+    public List<Trainee> getPriorityBusinessWaitingList() {
         return priorityBusinessWaitingList;
     }
 

@@ -9,28 +9,53 @@ public class ManageTrainees {
         // List<TrainingCentre> trainingCentres = null;
         WaitingList wl = new WaitingList();
         GenerateRandomNumber gn = new GenerateRandomNumber();
+        Trainee trainee = new Trainee("any");
         // generating between 50-100 trainees for first month
-        int javaTrainees = gn.generateRandomNumber(50, 101);
-        System.out.println("javaTrainees " + javaTrainees);
-        // creating java trainees based on the random generator and adding them into a
-        // waiting list (first month we don't have any training centre)
-        for(int j = 1; j <= javaTrainees; j++) {
-            Trainee javaTrainee = new Trainee("java");
-            wl.storeJavaWaitingList(javaTrainee);
+        int trainees = gn.generateRandomNumber(50, 101);
+        System.out.println("trainees " + trainees);
+        // creating trainees based on the random generator and adding them into a
+        // priority waiting list (first month we don't have any training centre)
+        for(int j = 1; j <= trainees; j++) {
+            trainee.generateTrainee();
+            String traineeCourse = trainee.getCourse();
+
+            switch (traineeCourse) {
+                case "java" -> {
+                    wl.storeWaitingList(trainee, "java priority");
+                }
+                case "c#" -> {
+                    wl.storeWaitingList(trainee, "c# priority");
+                }
+                case "data" -> {
+                    wl.storeWaitingList(trainee, "data priority");
+                }
+                case "devops" -> {
+                    wl.storeWaitingList(trainee, "devops priority");
+                }
+                case "business" -> {
+                    wl.storeWaitingList(trainee, "business priority");
+                }
+            }
         }
-        System.out.println("java dev in waiting list " + wl.getJavaWaitingList().size());
+        System.out.println("java trainee in priority waiting list "
+                + wl.getPriorityJavaWaitingList().size());
+        System.out.println("c# trainee in priority waiting list "
+                + wl.getPriorityCWaitingList().size());
+        System.out.println("data trainee in priority waiting list "
+                + wl.getPriorityDataWaitingList().size());
+        System.out.println("devops trainee in priority waiting list "
+                + wl.getPriorityDevOpsWaitingList().size());
+        System.out.println("business trainee in priority waiting list "
+                + wl.getPriorityBusinessWaitingList().size());
 
         // starting from 2nd month
         for(int i = 2; i <= months; i++) {
             // generating new java hires (between 50-100)
-            int newJavaHires = gn.generateRandomNumber(50, 101);
-            System.out.println("new java hires: " + newJavaHires);
+            int newHires = gn.generateRandomNumber(50, 101);
+            System.out.println("new hires: " + newHires);
             // every 2 months
             if(i % 2 == 0) {
-                // generating a number of centres based on input of the user
-                // creating training centre
-                TrainingCentre tc = new TrainingCentre(100, false, "java");
-                trainingCentres = tc.storeTrainingCentres(tc);
+
             }
             // generating number between 0-50 to see how many go into training centre
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
