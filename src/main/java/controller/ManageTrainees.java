@@ -3,12 +3,10 @@ package controller;
 import model.Trainee;
 import model.TrainingCentre;
 
-import java.util.List;
-
 public class ManageTrainees {
-    public void manageTrainees(int months, int centres) {
-        List<Trainee> javaTraineesWaiting = null;
-        List<TrainingCentre> trainingCentres = null;
+    public void manageTrainees(int months) {
+        // List<Trainee> javaTraineesWaiting = null;
+        // List<TrainingCentre> trainingCentres = null;
         WaitingList wl = new WaitingList();
         GenerateRandomNumber gn = new GenerateRandomNumber();
         // generating between 50-100 trainees for first month
@@ -18,9 +16,9 @@ public class ManageTrainees {
         // waiting list (first month we don't have any training centre)
         for(int j = 1; j <= javaTrainees; j++) {
             Trainee javaTrainee = new Trainee("java");
-            javaTraineesWaiting = wl.storeJavaWaitingList(javaTrainee);
+            wl.storeJavaWaitingList(javaTrainee);
         }
-        System.out.println("java dev in waiting list " + javaTraineesWaiting.size());
+        System.out.println("java dev in waiting list " + wl.getJavaWaitingList().size());
 
         // starting from 2nd month
         for(int i = 2; i <= months; i++) {
@@ -30,12 +28,9 @@ public class ManageTrainees {
             // every 2 months
             if(i % 2 == 0) {
                 // generating a number of centres based on input of the user
-                for(int j = 1; j <= centres; j++) {
-                    // creating training centre
-                    TrainingCentre tc = new TrainingCentre(100,
-                            false, "java");
-                    trainingCentres = tc.storeTrainingCentres(tc);
-                }
+                // creating training centre
+                TrainingCentre tc = new TrainingCentre(100, false, "java");
+                trainingCentres = tc.storeTrainingCentres(tc);
             }
             // generating number between 0-50 to see how many go into training centre
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);

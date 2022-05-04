@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TrainingCentre {
-    private int capacity = 100;
+    private List<TrainingCentre> trainingCentres = new ArrayList();
+    private int capacity;
     private boolean closed = false;
     private String course;
+
+    public List<TrainingCentre> getTrainingCentres() {
+        return trainingCentres;
+    }
 
     public String getCourse() {
         return course;
@@ -40,13 +45,11 @@ public class TrainingCentre {
     }
 
     public List<TrainingCentre> storeTrainingCentres(TrainingCentre trainingCentre) {
-        List<TrainingCentre> trainingCentres = new ArrayList();
-
         try {
-            trainingCentres.add(trainingCentre);
+            this.trainingCentres.add(trainingCentre);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return trainingCentres;
+        return this.trainingCentres;
     }
 }
