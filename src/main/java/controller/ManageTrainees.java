@@ -132,7 +132,6 @@ public class ManageTrainees {
                 // bootcamp training centres
                 if (trainingCentre instanceof BootCamp || trainingCentre instanceof TechCentre)
                 {
-                    System.out.println("tc " + trainingCentre.getTrainingCentres());
                     System.out.println("start centre");
                     manageCentres(trainingCentre, wl, traineesGoingIntoEachCentre,
                             trainee, newHires);
@@ -140,7 +139,6 @@ public class ManageTrainees {
 
                 }
             }
-            System.out.println("tr size " + tc.getTrainingCentres().size());
         }
     }
 }
