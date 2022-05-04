@@ -52,6 +52,17 @@ public class ManageTrainees {
                 if(javaTraineesWaiting.size() > 0 &&
                         traineesGoingIntoEachCentre <= javaTraineesWaiting.size()) {
                     System.out.println("old capacity: " + trainingCentre.getCapacity());
+
+                    if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
+                        int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
+                        traineesGoingIntoEachCentre = trainingCentreCapacity;
+
+                        for(int k = 0; k < javaToAdd; k++) {
+                            Trainee javaTrainee = new Trainee("java");
+                            wl.storeJavaWaitingList(javaTrainee);
+                        }
+                    }
+
                     trainingCentre.setCapacity(trainingCentreCapacity -
                             traineesGoingIntoEachCentre);
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
@@ -59,6 +70,17 @@ public class ManageTrainees {
                     System.out.println("javaTraineesWaiting.size() " + javaTraineesWaiting.size());
                 } else if (traineesGoingIntoEachCentre > javaTraineesWaiting.size()) {
                     System.out.println("old capacity: " + trainingCentre.getCapacity());
+
+                    if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
+                        int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
+                        traineesGoingIntoEachCentre = trainingCentreCapacity;
+
+                        for(int j = 0; j < javaToAdd; j++) {
+                            Trainee javaTrainee = new Trainee("java");
+                            wl.storeJavaWaitingList(javaTrainee);
+                        }
+                    }
+
                     trainingCentre.setCapacity(trainingCentreCapacity -
                             traineesGoingIntoEachCentre);
                     int numberJavaToDeleteFromWaiting = traineesGoingIntoEachCentre -
