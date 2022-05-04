@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="TraineesSimulator" />
+        <module name="trainee-simulator-worktree" />
         <module name="TraineesSimulator2" />
       </profile>
     </annotationProcessing>
