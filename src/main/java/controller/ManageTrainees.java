@@ -135,17 +135,18 @@ public class ManageTrainees {
         for(int i = 1; i <= months; i++) {
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
-            System.out.println("new hires " + newHires);
+            System.out.println("New hires " + newHires);
 
             // generating random employees based on the newHires number generated
             // and putting them into a list
             for(int j = 0; j < newHires; j++) {
                 trainee.generateTrainee();
+                //Creates each trainee and adds a course to them
             }
 
             // generating number between 0-50 to see how many go into training centre
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
-            System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
+            System.out.println("Trainees Going Into EachCentre: " + traineesGoingIntoEachCentre);
 
             // generating random training centres and putting them into a list
             tc.generateTrainingCentre();
