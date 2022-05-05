@@ -17,10 +17,10 @@ public class WaitingList {
         }
     }
 
-    public void deleteWaitingList()
+    public void deleteWaitingList(Trainee trainee)
     {
         try {
-            this.waitingList.remove(0);
+            this.waitingList.remove(trainee);
         } catch (Exception e) {
             e.printStackTrace();
         }

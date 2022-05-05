@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Trainee {
     private String course;
-    private List<Trainee> trainees = new ArrayList();
+    private static List<Trainee> trainees = new ArrayList();
 
     public Trainee(String course) {
         this.course = course;
