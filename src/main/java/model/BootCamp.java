@@ -12,7 +12,6 @@ public class BootCamp extends TrainingCentre implements TrainingCentersInterface
 
     public void storeTrainees(Trainee trainee) {
         this.bootcampTrainees.add(trainee);
-        System.out.println("bootcampTrainees.size() " + bootcampTrainees.size());
     }
 
     public Trainee getTrainee() {

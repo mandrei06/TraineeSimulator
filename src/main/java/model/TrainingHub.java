@@ -12,7 +12,6 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
 
     public void storeTrainees(Trainee trainee) {
         this.trainingHubTrainees.add(trainee);
-        System.out.println("trainingHubTrainees.size() " + trainingHubTrainees.size());
     }
 
     public TrainingHub(int capacity, boolean closed, String course, int months) {

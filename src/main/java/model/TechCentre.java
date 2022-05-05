@@ -12,7 +12,6 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
 
     public void storeTrainees(Trainee trainee) {
         this.techCentreTrainees.add(trainee);
-        System.out.println("techCentreTrainees.size() " + techCentreTrainees.size());
     }
 
     public TechCentre(int capacity, boolean closed, String course, int months) {
