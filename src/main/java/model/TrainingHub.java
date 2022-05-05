@@ -11,12 +11,10 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
     }
 
     public void storeTrainees(Trainee trainee) {
-        System.out.println("trHub store size" + trainingHubTrainees.size());
         this.trainingHubTrainees.add(trainee);
     }
 
     public void removeTrainees() {
-        System.out.println("trHub remove size" + trainingHubTrainees.size());
         this.trainingHubTrainees.remove(0);
     }
 
@@ -26,7 +24,6 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
     }
 
     public Trainee getTrainee() {
-        System.out.println("trHub get size" + trainingHubTrainees.size());
         Trainee trainee = this.trainingHubTrainees.get(0);
         return trainee;
     }

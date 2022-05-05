@@ -131,13 +131,12 @@ public class ManageTrainees {
             for(int j = 0; j < newHires; j++) {
                 trainee.generateTrainee();
             }
-
-            // generating number between 0-50 to see how many go into training centre
-            int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
-            System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
-
             // generating random training centres and putting them into a list
             tc.generateTrainingCentre();
+
+            int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
+
+            System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
 
             // looping through every training centres
             for(int j = 0; j < tc.getTrainingCentres().size(); j++) {
@@ -166,12 +165,10 @@ public class ManageTrainees {
 
                         // adding trainees to waiting list with index 0 so we give priority
                         // and removing them from the list of the centre
-                        if(priorityWaitingList > 0) {
-                            for(int k = 0; k < priorityWaitingList; k++) {
-                                Trainee priorityTrainee = trainingCentre.getTrainee();
-                                wl.getWaitingList().add(0, priorityTrainee);
-                                trainingCentre.removeTrainees();
-                            }
+                        for(int k = 0; k < priorityWaitingList; k++) {
+                            Trainee priorityTrainee = trainingCentre.getTrainee();
+                            wl.getWaitingList().add(0, priorityTrainee);
+                            trainingCentre.removeTrainees();
                         }
                     }
                 }
