@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TechCentre extends TrainingCentre {
+public class TechCentre extends TrainingCentre implements TrainingCentersInterface {
     private List<Trainee> techCentreTrainees = new ArrayList<>();
 
     public List<Trainee> getTechCentreTrainees() {
@@ -12,6 +12,7 @@ public class TechCentre extends TrainingCentre {
 
     public void storeTrainees(Trainee trainee) {
         this.techCentreTrainees.add(trainee);
+        System.out.println("techCentreTrainees.size() " + techCentreTrainees.size());
     }
 
     public TechCentre(int capacity, boolean closed, String course, int months) {

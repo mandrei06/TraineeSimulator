@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TrainingCentre {
+public class TrainingCentre implements TrainingCentersInterface {
     private List<TrainingCentre> trainingCentres = new ArrayList();
     private int capacity;
     private boolean closed;
@@ -83,9 +83,9 @@ public class TrainingCentre {
                     // between 1 and 3 training hub
                     int randomNumberHub = gn.generateRandomNumber(1, 4);
                     for(int i = 1; i <= randomNumberHub; i++) {
-                     trainingCentre = new TrainingHub(100,
-                             false, "any", 0);
-                     this.storeTrainingCentres(trainingCentre);
+                        trainingCentre = new TrainingHub(100,
+                                false, "any", 0);
+                        this.storeTrainingCentres(trainingCentre);
                     }
                 }
                 case 2 -> {
@@ -101,4 +101,12 @@ public class TrainingCentre {
         }
         return trainingCentre;
     }
+
+    @Override
+    public Trainee getTrainee() {
+        return null;
+    }
+
+    @Override
+    public void storeTrainees(Trainee trainee) {}
 }

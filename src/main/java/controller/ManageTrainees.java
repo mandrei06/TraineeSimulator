@@ -19,11 +19,7 @@ public class ManageTrainees {
                 wl.deleteWaitingList();
 
                 // adding to list of training center the trainee
-                if(trainingCentre instanceof BootCamp) {
-                    ((BootCamp) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                } else {
-                    ((TechCentre) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                }
+                trainingCentre.storeTrainees(trainee.getTrainees().get(0));
             }
         }
 
@@ -55,6 +51,11 @@ public class ManageTrainees {
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
                     System.out.println("traWaiting: " + wl.getWaitingList().size());
                 }
+                // storing trainees into training center
+                for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
+                    trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+                }
+
                 newHires -= traineesGoingIntoEachCentre;
             } else if(traineesGoingIntoEachCentre > wl.getWaitingList().size()
                     && wl.getWaitingList().size() > 0) {
@@ -77,13 +78,7 @@ public class ManageTrainees {
                             wl.deleteWaitingList();
 
                             // adding to list of training center the trainee
-                            if(trainingCentre instanceof BootCamp) {
-                                ((BootCamp) trainingCentre)
-                                        .storeTrainees(trainee.getTrainees().get(0));
-                            } else {
-                                ((TechCentre) trainingCentre)
-                                        .storeTrainees(trainee.getTrainees().get(0));
-                            }
+                            trainingCentre.storeTrainees(trainee.getTrainees().get(0));
                         }
                     }
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
@@ -104,11 +99,7 @@ public class ManageTrainees {
 
                     for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
                         // adding to list of training center the trainee
-                        if(trainingCentre instanceof BootCamp) {
-                            ((BootCamp) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                        } else {
-                            ((TechCentre) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                        }
+                        trainingCentre.storeTrainees(trainee.getTrainees().get(0));
                     }
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
                     System.out.println("traWaiting: " + wl.getWaitingList().size());
@@ -174,21 +165,14 @@ public class ManageTrainees {
 
                         // adding trainees to waiting list with index 0 so we give priority
                         for(int k = 0; k < priorityWaitingList; k++) {
-                            if(trainingCentre instanceof TechCentre) {
-                                wl.getWaitingList().add(0,
-                                        ((TechCentre) trainingCentre).getTrainee()
-                                );
-                            } else {
-                                wl.getWaitingList().add(0,
-                                        ((TrainingHub) trainingCentre).getTrainee()
-                                );
-                            }
+                                Trainee priorityTrainee = trainingCentre.getTrainee();
+                                wl.getWaitingList().add(priorityTrainee);
                         }
                     }
-
-                    System.out.println("end centre");
                 }
+                System.out.println("end centre");
             }
+            System.out.println("size training " + tc.getTrainingCentres().size());
         }
     }
 }
