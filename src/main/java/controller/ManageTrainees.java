@@ -15,15 +15,10 @@ public class ManageTrainees {
 
         if(traineesGoingIntoEachCentre > 0) {
             // removing trainees by index 0 because they got placed in a training center
-            for(int j = 0; j < trainingCentre.getCapacity(); j++) {
+            for(int j = 0; j < traineesGoingIntoEachCentre; j++) {
                 wl.deleteWaitingList();
-
                 // adding to list of training center the trainee
-                if(trainingCentre instanceof BootCamp) {
-                    ((BootCamp) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                } else {
-                    ((TechCentre) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                }
+                trainingCentre.storeTrainees(trainee.getTrainees().get(0));
             }
         }
 
@@ -55,6 +50,11 @@ public class ManageTrainees {
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
                     System.out.println("traWaiting: " + wl.getWaitingList().size());
                 }
+                // storing trainees into training center
+                for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
+                    trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+                }
+
                 newHires -= traineesGoingIntoEachCentre;
             } else if(traineesGoingIntoEachCentre > wl.getWaitingList().size()
                     && wl.getWaitingList().size() > 0) {
@@ -75,15 +75,8 @@ public class ManageTrainees {
                     if(numberTraineesToRemoveFromWaiting > 0) {
                         for(int i = 0; i < numberTraineesToRemoveFromWaiting; i++) {
                             wl.deleteWaitingList();
-
                             // adding to list of training center the trainee
-                            if(trainingCentre instanceof BootCamp) {
-                                ((BootCamp) trainingCentre)
-                                        .storeTrainees(trainee.getTrainees().get(0));
-                            } else {
-                                ((TechCentre) trainingCentre)
-                                        .storeTrainees(trainee.getTrainees().get(0));
-                            }
+                            trainingCentre.storeTrainees(trainee.getTrainees().get(0));
                         }
                     }
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
@@ -104,11 +97,7 @@ public class ManageTrainees {
 
                     for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
                         // adding to list of training center the trainee
-                        if(trainingCentre instanceof BootCamp) {
-                            ((BootCamp) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                        } else {
-                            ((TechCentre) trainingCentre).storeTrainees(trainee.getTrainees().get(0));
-                        }
+                        trainingCentre.storeTrainees(trainee.getTrainees().get(0));
                     }
                     System.out.println("new capacity: " + trainingCentre.getCapacity());
                     System.out.println("traWaiting: " + wl.getWaitingList().size());
@@ -164,6 +153,10 @@ public class ManageTrainees {
 
                     trainingCentre.setMonths(trainingCentre.getMonths() + 1);
 
+                    int priorityWaitingList = trainingCentre instanceof TrainingHub ?
+                            100 - trainingCentre.getCapacity() : 200 -
+                            trainingCentre.getCapacity();
+
                     // we first let pass one month and then we check if we should close the training
                     // bootcamps can remain open up to 3 months without closing
                     int minimumCapacity = trainingCentre instanceof TrainingHub ? 75 : 175;
@@ -171,25 +164,21 @@ public class ManageTrainees {
                             trainingCentre.getCapacity() > minimumCapacity &&
                             !(trainingCentre instanceof BootCamp)) {
                         trainingCentre.setClosed(true);
-                        int priorityWaitingList = trainingCentre.getCapacity();
 
                         // adding trainees to waiting list with index 0 so we give priority
-                        for(int k = 0; k < priorityWaitingList; k++) {
-                            if(trainingCentre instanceof TechCentre) {
-                                wl.getWaitingList().add(0,
-                                        ((TechCentre) trainingCentre).getTrainee()
-                                );
-                            } else {
-                                wl.getWaitingList().add(0,
-                                        ((TrainingHub) trainingCentre).getTrainee()
-                                );
+                        // and removing them from the list of the centre
+                        if(priorityWaitingList > 0) {
+                            for(int k = 0; k < priorityWaitingList; k++) {
+                                Trainee priorityTrainee = trainingCentre.getTrainee();
+                                wl.getWaitingList().add(0, priorityTrainee);
+                                trainingCentre.removeTrainees();
                             }
                         }
                     }
-
-                    System.out.println("end centre");
                 }
+                System.out.println("end centre");
             }
+            System.out.println("size training " + tc.getTrainingCentres().size());
         }
     }
 }
