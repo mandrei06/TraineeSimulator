@@ -166,7 +166,7 @@ public class ManageTrainees {
                         // adding trainees to waiting list with index 0 so we give priority
                         for(int k = 0; k < priorityWaitingList; k++) {
                                 Trainee priorityTrainee = trainingCentre.getTrainee();
-                                wl.getWaitingList().add(priorityTrainee);
+                                wl.getWaitingList().add(0, priorityTrainee);
                         }
                     }
                 }
