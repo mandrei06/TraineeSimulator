@@ -1,132 +1,183 @@
 package controller;
 
-import model.Trainee;
-import model.TrainingCentre;
-
-import java.util.List;
+import model.*;
 
 public class ManageTrainees {
-    public void manageTrainees(int months, int centres) {
-        List<Trainee> javaTraineesWaiting = null;
-        List<TrainingCentre> trainingCentres = null;
+    // if the centre is about to get full we full it and put the remaining into a
+    // waiting list, basically trainees will fill the capacity of training center
+    // the ones placed will be removed by index 0 (so we give priority to the old
+    // ones) and the remaining will be added to the waiting list (by index again)
+    // so that they can be placed in another location (if there is any)
+    public void centerFull(TrainingCentre trainingCentre, Trainee trainee,
+                                int traineesGoingIntoEachCentre,
+                                WaitingList wl) {
+        int traineesToWaiting = traineesGoingIntoEachCentre - trainingCentre.getCapacity();
+
+        if(traineesGoingIntoEachCentre > 0) {
+            // removing trainees by index 0 because they got placed in a training center
+            for(int j = 0; j < traineesGoingIntoEachCentre; j++) {
+                wl.deleteWaitingList();
+                // adding to list of training center the trainee
+                trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+            }
+        }
+
+        // getting trainees from trainees list and adding them to waiting list
+        for(int i = 0; i < traineesToWaiting; i++) {
+            wl.storeWaitingList(trainee.getTrainees().get(0));
+        }
+        System.out.println("old capacity: " + trainingCentre.getCapacity());
+        trainingCentre.setCapacity(0);
+        System.out.println("new capacity " + trainingCentre.getCapacity());
+        System.out.println("traWaiting: " + wl.getWaitingList().size());
+    }
+
+    // function that will be used when looping the training centres
+    public void manageCentres(TrainingCentre trainingCentre, WaitingList wl,
+                              int traineesGoingIntoEachCentre, Trainee trainee, int newHires) {
+        if(!trainingCentre.isClosed()) {
+            if(wl.getWaitingList().size() > 0
+                    && traineesGoingIntoEachCentre <= wl.getWaitingList().size()) {
+                System.out.println("old capacity " + trainingCentre.getCapacity());
+
+                // see comments above
+                if(trainingCentre.getCapacity() < traineesGoingIntoEachCentre) {
+                    centerFull(trainingCentre, trainee, traineesGoingIntoEachCentre, wl);
+                } else {
+                    System.out.println("old capacity: " + trainingCentre.getCapacity());
+                    trainingCentre.setCapacity(trainingCentre.getCapacity() -
+                            traineesGoingIntoEachCentre);
+                    System.out.println("new capacity: " + trainingCentre.getCapacity());
+                    System.out.println("traWaiting: " + wl.getWaitingList().size());
+                }
+                // storing trainees into training center
+                for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
+                    trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+                }
+
+                newHires -= traineesGoingIntoEachCentre;
+            } else if(traineesGoingIntoEachCentre > wl.getWaitingList().size()
+                    && wl.getWaitingList().size() > 0) {
+                System.out.println("old capacity: " + trainingCentre.getCapacity());
+
+                // see comments above
+                if(trainingCentre.getCapacity() < traineesGoingIntoEachCentre) {
+                    centerFull(trainingCentre, trainee, traineesGoingIntoEachCentre, wl);
+                } else {
+                    trainingCentre.setCapacity(trainingCentre.getCapacity() -
+                            traineesGoingIntoEachCentre);
+
+                    // calculating how many trainees we need to remove from waiting
+                    int numberTraineesToRemoveFromWaiting = traineesGoingIntoEachCentre -
+                            wl.getWaitingList().size();
+
+                    // deleting from waiting list by index (so that we give priority)
+                    if(numberTraineesToRemoveFromWaiting > 0) {
+                        for(int i = 0; i < numberTraineesToRemoveFromWaiting; i++) {
+                            wl.deleteWaitingList();
+                            // adding to list of training center the trainee
+                            trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+                        }
+                    }
+                    System.out.println("new capacity: " + trainingCentre.getCapacity());
+                    System.out.println("traWaiting: " + wl.getWaitingList().size());
+
+                    // updating new hires so that we can put them into waiting list
+                    newHires -= traineesGoingIntoEachCentre - numberTraineesToRemoveFromWaiting;
+                }
+            } else {
+                System.out.println("old capacity: " + trainingCentre.getCapacity());
+
+                // see comments above
+                if(trainingCentre.getCapacity() < traineesGoingIntoEachCentre) {
+                    centerFull(trainingCentre, trainee, traineesGoingIntoEachCentre, wl);
+                } else {
+                    trainingCentre.setCapacity(trainingCentre.getCapacity() -
+                            traineesGoingIntoEachCentre);
+
+                    for(int i = 0; i < traineesGoingIntoEachCentre; i++) {
+                        // adding to list of training center the trainee
+                        trainingCentre.storeTrainees(trainee.getTrainees().get(0));
+                    }
+                    System.out.println("new capacity: " + trainingCentre.getCapacity());
+                    System.out.println("traWaiting: " + wl.getWaitingList().size());
+                    System.out.println("new hires: " + newHires);
+                }
+                newHires -= traineesGoingIntoEachCentre;
+            }
+            System.out.println("newHires after: " + newHires);
+            // adding to wait list trainees that cannot be placed
+            for(int j = 0; j < newHires; j++) {
+                wl.storeWaitingList(trainee.getTrainees().get(0));
+            }
+            System.out.println("waiting list " + wl.getWaitingList().size());
+        }
+    }
+
+    public void manageTrainees(int months) {
         WaitingList wl = new WaitingList();
         GenerateRandomNumber gn = new GenerateRandomNumber();
-        // generating between 50-100 trainees for first month
-        int javaTrainees = gn.generateRandomNumber(50, 101);
-        System.out.println("javaTrainees " + javaTrainees);
-        // creating java trainees based on the random generator and adding them into a
-        // waiting list (first month we don't have any training centre)
-        for(int j = 1; j <= javaTrainees; j++) {
-            Trainee javaTrainee = new Trainee("java");
-            javaTraineesWaiting = wl.storeJavaWaitingList(javaTrainee);
-        }
-        System.out.println("java dev in waiting list " + javaTraineesWaiting.size());
+        TrainingCentre tc = new TrainingCentre(0, false, "any", 1);
+        Trainee trainee = new Trainee("any");
 
-        // starting from 2nd month
-        for(int i = 2; i <= months; i++) {
-            // generating new java hires (between 50-100)
-            int newJavaHires = gn.generateRandomNumber(50, 101);
-            System.out.println("new java hires: " + newJavaHires);
-            // every 2 months
-            if(i % 2 == 0) {
-                // generating a number of centres based on input of the user
-                for(int j = 1; j <= centres; j++) {
-                    // creating training centre
-                    TrainingCentre tc = new TrainingCentre(100,
-                            false, "java");
-                    trainingCentres = tc.storeTrainingCentres(tc);
-                }
+        // starting from 1st month
+        for(int i = 1; i <= months; i++) {
+            // generating new hires (between 50-100)
+            int newHires = gn.generateRandomNumber(50, 101);
+            System.out.println("new hires " + newHires);
+
+            // generating random employees based on the newHires number generated
+            // and putting them into a list
+            for(int j = 0; j < newHires; j++) {
+                trainee.generateTrainee();
             }
+
             // generating number between 0-50 to see how many go into training centre
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
             System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
-            // maximum number of java dev that can be placed
-            // this variable will be used later so that we can update the new hires
-            // and put them into a waiting list
-            int maximumNumberJavaDevPlaced = traineesGoingIntoEachCentre * trainingCentres.size();
-            System.out.println(maximumNumberJavaDevPlaced + " can go into centres");
 
-            // if there are java devs in waiting list we put them first in centre
-            for(TrainingCentre trainingCentre: trainingCentres) {
-                // getting capacity
-                int trainingCentreCapacity = trainingCentre.getCapacity();
+            // generating random training centres and putting them into a list
+            tc.generateTrainingCentre();
 
-                if(javaTraineesWaiting.size() > 0 &&
-                        traineesGoingIntoEachCentre <= javaTraineesWaiting.size()) {
-                    System.out.println("old capacity: " + trainingCentre.getCapacity());
+            // looping through every training centres
+            for(int j = 0; j < tc.getTrainingCentres().size(); j++) {
+                TrainingCentre trainingCentre = tc.getTrainingCentres().get(j);
 
-                    // if the centre is about to get full we full it
-                    // and put the remaining into a waiting list
-                    if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
-                        int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
-                        traineesGoingIntoEachCentre = trainingCentreCapacity;
+                // bootcamp training centres
+                if (trainingCentre instanceof BootCamp || trainingCentre instanceof TrainingHub)
+                {
+                    System.out.println("start centre");
+                    manageCentres(trainingCentre, wl, traineesGoingIntoEachCentre,
+                            trainee, newHires);
 
-                        for(int k = 0; k < javaToAdd; k++) {
-                            Trainee javaTrainee = new Trainee("java");
-                            wl.storeJavaWaitingList(javaTrainee);
+                    trainingCentre.setMonths(trainingCentre.getMonths() + 1);
+
+                    int priorityWaitingList = trainingCentre instanceof TrainingHub ?
+                            100 - trainingCentre.getCapacity() : 200 -
+                            trainingCentre.getCapacity();
+
+                    // we first let pass one month and then we check if we should close the training
+                    // bootcamps can remain open up to 3 months without closing
+                    int minimumCapacity = trainingCentre instanceof TrainingHub ? 75 : 175;
+                    if(trainingCentre.getMonths() > 1 &&
+                            trainingCentre.getCapacity() > minimumCapacity &&
+                            !(trainingCentre instanceof BootCamp)) {
+                        trainingCentre.setClosed(true);
+
+                        // adding trainees to waiting list with index 0 so we give priority
+                        // and removing them from the list of the centre
+                        if(priorityWaitingList > 0) {
+                            for(int k = 0; k < priorityWaitingList; k++) {
+                                Trainee priorityTrainee = trainingCentre.getTrainee();
+                                wl.getWaitingList().add(0, priorityTrainee);
+                                trainingCentre.removeTrainees();
+                            }
                         }
                     }
-
-                    trainingCentre.setCapacity(trainingCentreCapacity -
-                            traineesGoingIntoEachCentre);
-
-                    System.out.println("new capacity: " + trainingCentre.getCapacity());
-                    // deleting java devs from waiting list
-                    if(traineesGoingIntoEachCentre > 0) {
-                        System.out.println("if size " + javaTraineesWaiting.size());
-                        System.out.println("if train " + traineesGoingIntoEachCentre);
-
-                        for(int j = 0; j < traineesGoingIntoEachCentre; j++) {
-                            wl.deleteJavaWaitingList(javaTraineesWaiting);
-                        }
-                        System.out.println("if size2 " + javaTraineesWaiting.size());
-                    }
-                    System.out.println("javaTraineesWaiting.size() " + javaTraineesWaiting.size());
-                } else if (traineesGoingIntoEachCentre > javaTraineesWaiting.size()) {
-                    System.out.println("old capacity: " + trainingCentre.getCapacity());
-
-                    // if the centre is about to get full we full it
-                    // and put the remaining into a waiting list
-                    if(trainingCentreCapacity < traineesGoingIntoEachCentre) {
-                        int javaToAdd = traineesGoingIntoEachCentre - trainingCentreCapacity;
-                        traineesGoingIntoEachCentre = trainingCentreCapacity;
-
-                        for(int j = 0; j < javaToAdd; j++) {
-                            Trainee javaTrainee = new Trainee("java");
-                            wl.storeJavaWaitingList(javaTrainee);
-                        }
-                    }
-
-                    trainingCentre.setCapacity(trainingCentreCapacity -
-                            traineesGoingIntoEachCentre);
-                    int numberJavaToDeleteFromWaiting = traineesGoingIntoEachCentre -
-                            javaTraineesWaiting.size();
-
-                    // deleting from waiting list
-                    if(numberJavaToDeleteFromWaiting > 0) {
-                        System.out.println("if size " + javaTraineesWaiting.size());
-                        System.out.println("if train " + traineesGoingIntoEachCentre);
-
-                        for(int j = 0; j < numberJavaToDeleteFromWaiting; j++) {
-                            wl.deleteJavaWaitingList(javaTraineesWaiting);
-                        }
-                        System.out.println("if size2 " + javaTraineesWaiting.size());
-                    }
-
-                    System.out.println("new capacity: " + trainingCentre.getCapacity());
-
-                    // updating new java hires so that we can put them into waiting list
-                    newJavaHires -= maximumNumberJavaDevPlaced - numberJavaToDeleteFromWaiting;
                 }
+                System.out.println("end centre");
             }
-
-            System.out.println("newJavaHires after " + newJavaHires);
-            // adding to waiting list java devs that cannot be placed
-            for(int j = 0; j < newJavaHires; j++) {
-                Trainee javaTrainee = new Trainee("java");
-                javaTraineesWaiting = wl.storeJavaWaitingList(javaTrainee);
-            }
-            System.out.println("storeJavaWaitingList " + javaTraineesWaiting.size());
+            System.out.println("size training " + tc.getTrainingCentres().size());
         }
     }
 }
