@@ -2,12 +2,12 @@ package model;
 
 import controller.GenerateRandomCourse;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Trainee {
     private String course;
-    private static List<Trainee> trainees = new ArrayList();
+    public static List<Trainee> trainees = new LinkedList<>();
 
     public Trainee(String course) {
         this.course = course;
@@ -15,10 +15,6 @@ public class Trainee {
 
     public String getCourse() {
         return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
     }
 
     public List<Trainee> getTrainees() {
@@ -37,5 +33,9 @@ public class Trainee {
             e.printStackTrace();
         }
         return trainee;
+    }
+
+    public void removeNewHired(Trainee trainee) {
+        this.trainees.remove(trainee);
     }
 }
