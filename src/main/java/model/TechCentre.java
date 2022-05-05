@@ -12,12 +12,10 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
 
     public void storeTrainees(Trainee trainee) {
         this.techCentreTrainees.add(trainee);
-        System.out.println("tech store size" + techCentreTrainees.size());
     }
 
     public void removeTrainees() {
         this.techCentreTrainees.remove(0);
-        System.out.println("tech remove size" + techCentreTrainees.size());
     }
 
     public TechCentre(int capacity, boolean closed, String course,
@@ -26,7 +24,6 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
     }
 
     public Trainee getTrainee() {
-        System.out.println("tech get size" + techCentreTrainees.size());
         Trainee trainee = this.techCentreTrainees.get(0);
         return trainee;
     }

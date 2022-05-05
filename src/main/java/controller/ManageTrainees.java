@@ -124,21 +124,19 @@ public class ManageTrainees {
         for(int i = 1; i <= months; i++) {
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
-            System.out.println("New hires " + newHires);
+            System.out.println("new hires " + newHires);
 
             // generating random employees based on the newHires number generated
             // and putting them into a list
             for(int j = 0; j < newHires; j++) {
                 trainee.generateTrainee();
-                //Creates each trainee and adds a course to them
             }
-
-            // generating number between 0-50 to see how many go into training centre
-            int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
-            System.out.println("Trainees Going Into EachCentre: " + traineesGoingIntoEachCentre);
-
             // generating random training centres and putting them into a list
             tc.generateTrainingCentre();
+
+            int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
+
+            System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
 
             // looping through every training centres
             for(int j = 0; j < tc.getTrainingCentres().size(); j++) {
@@ -167,12 +165,10 @@ public class ManageTrainees {
 
                         // adding trainees to waiting list with index 0 so we give priority
                         // and removing them from the list of the centre
-                        if(priorityWaitingList > 0) {
-                            for(int k = 0; k < priorityWaitingList; k++) {
-                                Trainee priorityTrainee = trainingCentre.getTrainee();
-                                wl.getWaitingList().add(0, priorityTrainee);
-                                trainingCentre.removeTrainees();
-                            }
+                        for(int k = 0; k < priorityWaitingList; k++) {
+                            Trainee priorityTrainee = trainingCentre.getTrainee();
+                            wl.getWaitingList().add(0, priorityTrainee);
+                            trainingCentre.removeTrainees();
                         }
                     }
                 }
