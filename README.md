@@ -1,9 +1,6 @@
-# TraineesSimulator
-Group_Project
-
 ## Overview
 
-My team have been asked to build a simulator which will help track the number of people currently training.
+Our team have been asked to build a simulator which will help track the number of people currently training.
 
 ## Stage 1 requirements:
 
