@@ -15,9 +15,8 @@ public class ManageTrainees {
 
         if(traineesGoingIntoEachCentre > 0) {
             // removing trainees by index 0 because they got placed in a training center
-            for(int j = 0; j < trainingCentre.getCapacity(); j++) {
+            for(int j = 0; j < traineesGoingIntoEachCentre; j++) {
                 wl.deleteWaitingList();
-
                 // adding to list of training center the trainee
                 trainingCentre.storeTrainees(trainee.getTrainees().get(0));
             }
@@ -76,7 +75,6 @@ public class ManageTrainees {
                     if(numberTraineesToRemoveFromWaiting > 0) {
                         for(int i = 0; i < numberTraineesToRemoveFromWaiting; i++) {
                             wl.deleteWaitingList();
-
                             // adding to list of training center the trainee
                             trainingCentre.storeTrainees(trainee.getTrainees().get(0));
                         }
@@ -154,6 +152,10 @@ public class ManageTrainees {
 
                     trainingCentre.setMonths(trainingCentre.getMonths() + 1);
 
+                    int priorityWaitingList = trainingCentre instanceof TrainingHub ?
+                            100 - trainingCentre.getCapacity() : 200 -
+                            trainingCentre.getCapacity();
+
                     // we first let pass one month and then we check if we should close the training
                     // bootcamps can remain open up to 3 months without closing
                     int minimumCapacity = trainingCentre instanceof TrainingHub ? 75 : 175;
@@ -161,12 +163,15 @@ public class ManageTrainees {
                             trainingCentre.getCapacity() > minimumCapacity &&
                             !(trainingCentre instanceof BootCamp)) {
                         trainingCentre.setClosed(true);
-                        int priorityWaitingList = trainingCentre.getCapacity();
 
                         // adding trainees to waiting list with index 0 so we give priority
-                        for(int k = 0; k < priorityWaitingList; k++) {
+                        // and removing them from the list of the centre
+                        if(priorityWaitingList > 0) {
+                            for(int k = 0; k < priorityWaitingList; k++) {
                                 Trainee priorityTrainee = trainingCentre.getTrainee();
                                 wl.getWaitingList().add(0, priorityTrainee);
+                                trainingCentre.removeTrainees();
+                            }
                         }
                     }
                 }

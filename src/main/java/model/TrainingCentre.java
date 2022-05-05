@@ -92,7 +92,8 @@ public class TrainingCentre implements TrainingCentersInterface {
                     // generating random course which will be assigned to the TechCentre
                     GenerateRandomCourse gc = new GenerateRandomCourse();
                     String course = gc.generateRandomCourse();
-                    trainingCentre = new TechCentre(200, false, course, 0);
+                    trainingCentre = new TechCentre(200, false,
+                            course, 0);
                     this.storeTrainingCentres(trainingCentre);
                 }
             }
@@ -109,4 +110,7 @@ public class TrainingCentre implements TrainingCentersInterface {
 
     @Override
     public void storeTrainees(Trainee trainee) {}
+
+    @Override
+    public void removeTrainees() {};
 }
