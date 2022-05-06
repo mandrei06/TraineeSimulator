@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BootCamp extends TrainingCentre implements TrainingCentersInterface {
+
+
     private static List<Trainee> bootcampTrainees = new ArrayList<>();
 
     public BootCamp(int capacity, boolean closed, String course,
                     int months) {
         super(capacity, closed, course, months);
+    }
+
+    public static List<Trainee> getBootcampTrainees() {
+        return bootcampTrainees;
     }
 
     public void storeTrainees(Trainee trainee) {
