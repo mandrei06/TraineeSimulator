@@ -3,6 +3,7 @@ package controller;
 import model.*;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ManageTrainees {
@@ -264,6 +265,47 @@ public class ManageTrainees {
                     techCenterClosed++;
                 }
             }
+            Client clientGenerated = null;
+            // generating client every 12 months
+            if(i % 12 == 0) {
+                Client c = new Client("any", 0, true);
+                // this is the actual client
+                clientGenerated = c.generateClient();
+            }
+
+            // every 12 months a client takes a random number of trainees from 15-30
+            int randomTraineesFromBench = gn.generateRandomNumber(15, 31);
+
+            // going through list of clients
+            for(Client client: clientGenerated.getClients()) {
+                int counter = 0;
+                if(client.isHappy()) {
+                    List<Trainee> traineesFromBench = t.getBench();
+                    Iterator<Trainee> iterator = traineesFromBench.iterator();
+
+                    // going thourgh the bench
+                    while(iterator.hasNext()) {
+                        Trainee trainee1 = iterator.next();
+
+                        // if trainee matches the course of the client we remove the trainee
+                        // from the bench and increase the counter
+                        if(client.getCourse().equals(trainee1.getCourse())) {
+                            iterator.remove();
+                            counter++;
+                        }
+
+                        // if counter reaches the number of trainees that the client wants
+                        // we break the loop
+                        if(counter == randomTraineesFromBench) {
+                            break;
+                        }
+                    }
+                }
+                System.out.println("counter " + counter);
+            }
+            System.out.println("clients " + clientGenerated.getClients().size());
+            System.out.println("bench " + trainee.getBench().size());
+
             if(i == months) {
                 System.out.println("we have bootcamp" +
                         (bootcamp == 0 || bootcamp > 1 ? "s: ": ": ") + bootcamp + " open");
