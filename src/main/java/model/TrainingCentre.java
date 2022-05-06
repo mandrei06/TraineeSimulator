@@ -8,11 +8,11 @@ import java.util.List;
 
 public class TrainingCentre implements TrainingCentersInterface {
     private List<TrainingCentre> trainingCentres = new ArrayList();
-    private int capacity;
-    private boolean closed;
-    private String course;
-    private int months;
-    private int lowAttendance;
+    private static int capacity;
+    private static boolean closed;
+    private static String course;
+    private static int months;
+    private static int lowAttendance;
 
     public int getLowAttendance() {
         return lowAttendance;
