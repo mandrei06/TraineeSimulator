@@ -191,9 +191,7 @@ public class ManageTrainees {
                 if(trainingCentre.getMonths() > 1 &&
                         trainingCentre.getCapacity() > minimumCapacity &&
                         !(trainingCentre instanceof BootCamp)) {
-                    // adding trainees to waiting list with index 0 so we give priority
-                    // and removing them from the list of the centre
-                    trainingClosed(priorityWaitingList, trainingCentre, wl);
+                    trainingCentre.setLowAttendance(trainingCentre.getCapacity() + 1);
                 } else {
                     // if training center has less than 25 trainees in one month it will be closed
                     // bootcamps can remain open up to 3 months without closing
@@ -203,7 +201,6 @@ public class ManageTrainees {
                         trainingCentre.setLowAttendance(trainingCentre.getLowAttendance() + 1);
                     }
                 }
-                trainingCentre.setMonths(trainingCentre.getMonths() + 1);
 
                 // calculating how many trainees we need to put in waiting list
                 int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
@@ -216,6 +213,8 @@ public class ManageTrainees {
                 }
 
                 System.out.println("end centre");
+                // we let a month pass and then increase the months
+                trainingCentre.setMonths(trainingCentre.getMonths() + 1);
             }
             System.out.println("month " + i + " ended");
             System.out.println("size training centres " + tc.getTrainingCentres().size());

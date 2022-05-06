@@ -17,7 +17,6 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
 
     public List<Trainee> getTraineesFromCenter() {
         List<Trainee> trainees = this.trainingHubTrainees;
-        // System.out.println("hub get " + this.trainingHubTrainees.size());
         return trainees;
     }
 }
