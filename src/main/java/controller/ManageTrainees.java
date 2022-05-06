@@ -99,6 +99,7 @@ public class ManageTrainees {
 
         // starting from 1st month
         for(int i = 1; i <= months; i++) {
+            System.out.println("month started");
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
             System.out.println("new hires " + newHires);
@@ -168,7 +169,8 @@ public class ManageTrainees {
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
                 System.out.println("end centre");
             }
-            System.out.println("size training centres" + tc.getTrainingCentres().size());
+            System.out.println("size training centres: " + tc.getTrainingCentres().size());
+            System.out.println("Month Ended\n\n");
         }
     }
     // adding trainees to waiting list with index 0 so we give priority
