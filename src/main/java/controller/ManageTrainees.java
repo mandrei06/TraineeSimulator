@@ -185,10 +185,6 @@ public class ManageTrainees {
         List<Trainee> traineesListGoingIntoWaiting = trainingCentre.getTraineesFromCenter();
         Iterator<Trainee> iterator = traineesListGoingIntoWaiting.iterator();
 
-        System.out.println("wl.getWaitingList()" + wl.getWaitingList().size());
-        System.out.println("priorityWaitingList" + priorityWaitingList);
-        System.out.println("trainingCentre.getTraineesFromCenter()" +
-                trainingCentre.getTraineesFromCenter().size());
         if(priorityWaitingList > 0) {
             while(iterator.hasNext()) {
                 Trainee priorityTrainee = iterator.next();
@@ -202,6 +198,5 @@ public class ManageTrainees {
                 // t.removeNewHired(trainee);
             }
         }
-        System.out.println("wl.getWaitingList()" + wl.getWaitingList().size());
     }
 }
