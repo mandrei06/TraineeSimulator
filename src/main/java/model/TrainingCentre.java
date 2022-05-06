@@ -91,6 +91,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                                 "java c# data devops business", 0);
                         this.storeTrainingCentres(trainingCentre);
                     }
+                    System.out.println("training hub generated " + randomNumberHub);
                 }
             }
         } catch (Exception e) {

@@ -45,8 +45,7 @@ public class ManageTrainees {
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
-                        if(traineesGoingIntoEachCentre == 0 ||
-                                trainingCentre.getCapacity() == 0) {
+                        if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0) {
                             break;
                         }
                     }
@@ -66,8 +65,8 @@ public class ManageTrainees {
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
-                        if(traineesGoingIntoEachCentre == 0 ||
-                                trainingCentre.getCapacity() == 0) {
+                        if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0
+                        || t.getTrainees().size() == 0) {
                             break;
                         }
                     }
@@ -99,6 +98,7 @@ public class ManageTrainees {
 
         // starting from 1st month
         for(int i = 1; i <= months; i++) {
+            System.out.println("month " + i + " started");
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
             System.out.println("new hires " + newHires);
@@ -124,12 +124,15 @@ public class ManageTrainees {
                 }
             }
 
+            // first month we don't generate training hubs
             if(i == 1) {
                 tc.generateTrainingCentre(0, 2);
             } else {
+                // if we have 2 bootcamps open we don't generate another one
                 if(countBootcamps == 2) {
                     tc.generateTrainingCentre(1, 3);
                 } else {
+                    // generating randomly any training centers
                     tc.generateTrainingCentre(0, 3);
                 }
             }
@@ -168,6 +171,7 @@ public class ManageTrainees {
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
                 System.out.println("end centre");
             }
+            System.out.println("month " + i + " ended");
             System.out.println("size training centres" + tc.getTrainingCentres().size());
         }
     }
