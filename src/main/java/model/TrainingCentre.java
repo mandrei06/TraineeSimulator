@@ -4,7 +4,6 @@ import controller.GenerateRandomCourse;
 import controller.GenerateRandomNumber;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TrainingCentre implements TrainingCentersInterface {
@@ -101,7 +100,7 @@ public class TrainingCentre implements TrainingCentersInterface {
     }
 
     @Override
-    public Trainee getTrainee() {
+    public List<Trainee> getTraineesFromCenter() {
         return null;
     }
 

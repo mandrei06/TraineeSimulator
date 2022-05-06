@@ -66,6 +66,8 @@ public class ManageTrainees {
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
                         if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0
+                        // this || t.getTrainees().size() == 0 it's not needed has we will end
+                        // the loop once
                         || t.getTrainees().size() == 0) {
                             break;
                         }
@@ -162,9 +164,9 @@ public class ManageTrainees {
                     trainingClosed(priorityWaitingList, trainingCentre, wl);
                 } else {
                     int minimumCapacityBootcamp = 475;
+                    int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
                     if(trainingCentre instanceof BootCamp && trainingCentre.getMonths() > 3 &&
                     trainingCentre.getCapacity() > minimumCapacityBootcamp) {
-                        int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
                         trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
                     }
                 }
@@ -172,7 +174,7 @@ public class ManageTrainees {
                 System.out.println("end centre");
             }
             System.out.println("month " + i + " ended");
-            System.out.println("size training centres" + tc.getTrainingCentres().size());
+            System.out.println("size training centres " + tc.getTrainingCentres().size());
         }
     }
     // adding trainees to waiting list with index 0 so we give priority
@@ -180,10 +182,26 @@ public class ManageTrainees {
     public void trainingClosed(int priorityWaitingList, TrainingCentre trainingCentre,
                                WaitingList wl) {
         trainingCentre.setClosed(true);
-        for(int k = 0; k < priorityWaitingList; k++) {
-            Trainee priorityTrainee = trainingCentre.getTrainee();
-            wl.getWaitingList().add(0, priorityTrainee);
-            trainingCentre.removeTrainees();
+        List<Trainee> traineesListGoingIntoWaiting = trainingCentre.getTraineesFromCenter();
+        Iterator<Trainee> iterator = traineesListGoingIntoWaiting.iterator();
+
+        System.out.println("wl.getWaitingList()" + wl.getWaitingList().size());
+        System.out.println("priorityWaitingList" + priorityWaitingList);
+        System.out.println("trainingCentre.getTraineesFromCenter()" +
+                trainingCentre.getTraineesFromCenter().size());
+        if(priorityWaitingList > 0) {
+            while(iterator.hasNext()) {
+                Trainee priorityTrainee = iterator.next();
+                wl.getWaitingList().add(0, priorityTrainee);
+                iterator.remove();
+                priorityWaitingList--;
+
+                if(priorityWaitingList == 0) {
+                    break;
+                }
+                // t.removeNewHired(trainee);
+            }
         }
+        System.out.println("wl.getWaitingList()" + wl.getWaitingList().size());
     }
 }

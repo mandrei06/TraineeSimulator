@@ -27,9 +27,9 @@ public class BootCamp extends TrainingCentre implements TrainingCentersInterface
         // System.out.println("b rem " + this.bootcampTrainees.size());
     }
 
-    public Trainee getTrainee() {
-        Trainee trainee = this.bootcampTrainees.get(0);
+    public List<Trainee> getTraineesFromCenter() {
+        List<Trainee> trainees = this.bootcampTrainees;
         // System.out.println("b get " + this.bootcampTrainees.size());
-        return trainee;
+        return trainees;
     }
 }
