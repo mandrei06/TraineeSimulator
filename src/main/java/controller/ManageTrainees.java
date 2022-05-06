@@ -31,7 +31,8 @@ public class ManageTrainees {
                     }
                 }
 
-                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0) {
+                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
+                t.getTrainees().size() > 0) {
                     List<Trainee> traineeList = t.getTrainees();
                     Iterator<Trainee> iterator2 = traineeList.iterator();
 
@@ -40,6 +41,7 @@ public class ManageTrainees {
 
                         trainingCentre.storeTrainees(trainee);
                         iterator2.remove();
+                        // t.removeNewHired(trainee);
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
@@ -50,7 +52,8 @@ public class ManageTrainees {
                     }
                 }
             } else {
-                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0) {
+                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
+                        t.getTrainees().size() > 0) {
                     List<Trainee> traineeList = t.getTrainees();
                     Iterator<Trainee> iterator3 = traineeList.iterator();
 
@@ -79,6 +82,7 @@ public class ManageTrainees {
                 Trainee trainee = iterator.next();
                 wl.storeWaitingList(trainee);
                 iterator.remove();
+                // t.removeNewHired(trainee);
             }
 
             System.out.println("trainees " + t.getTrainees().size());
