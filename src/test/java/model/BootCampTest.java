@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import junit.framework.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -41,3 +41,6 @@ public class BootCampTest {
         Assert.assertEquals(trainee,result);
     }
 }
+
+
+ */

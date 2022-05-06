@@ -24,9 +24,9 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
         super(capacity, closed, course, months);
     }
 
-    public Trainee getTrainee() {
-        Trainee trainee = this.techCentreTrainees.get(0);
+    public List<Trainee> getTraineesFromCenter() {
+        List<Trainee> trainees = this.techCentreTrainees;
         // System.out.println("tech get " + this.techCentreTrainees.size());
-        return trainee;
+        return trainees;
     }
 }

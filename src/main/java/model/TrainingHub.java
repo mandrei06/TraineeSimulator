@@ -20,9 +20,9 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
         super(capacity, closed, course, months);
     }
 
-    public Trainee getTrainee() {
-        Trainee trainee = this.trainingHubTrainees.get(0);
+    public List<Trainee> getTraineesFromCenter() {
+        List<Trainee> trainees = this.trainingHubTrainees;
         // System.out.println("hub get " + this.trainingHubTrainees.size());
-        return trainee;
+        return trainees;
     }
 }

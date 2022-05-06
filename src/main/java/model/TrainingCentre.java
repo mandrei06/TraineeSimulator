@@ -4,7 +4,6 @@ import controller.GenerateRandomCourse;
 import controller.GenerateRandomNumber;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TrainingCentre implements TrainingCentersInterface {
@@ -91,6 +90,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                                 "java c# data devops business", 0);
                         this.storeTrainingCentres(trainingCentre);
                     }
+                    System.out.println("training hub generated " + randomNumberHub);
                 }
             }
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class TrainingCentre implements TrainingCentersInterface {
     }
 
     @Override
-    public Trainee getTrainee() {
+    public List<Trainee> getTraineesFromCenter() {
         return null;
     }
 

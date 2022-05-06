@@ -45,8 +45,7 @@ public class ManageTrainees {
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
-                        if(traineesGoingIntoEachCentre == 0 ||
-                                trainingCentre.getCapacity() == 0) {
+                        if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0) {
                             break;
                         }
                     }
@@ -66,8 +65,10 @@ public class ManageTrainees {
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
-                        if(traineesGoingIntoEachCentre == 0 ||
-                                trainingCentre.getCapacity() == 0) {
+                        if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0
+                        // this || t.getTrainees().size() == 0 it's not needed has we will end
+                        // the loop once
+                        || t.getTrainees().size() == 0) {
                             break;
                         }
                     }
@@ -99,7 +100,7 @@ public class ManageTrainees {
 
         // starting from 1st month
         for(int i = 1; i <= months; i++) {
-            System.out.println("month started");
+            System.out.println("month " + i + " started");
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
             System.out.println("new hires " + newHires);
@@ -125,12 +126,15 @@ public class ManageTrainees {
                 }
             }
 
+            // first month we don't generate training hubs
             if(i == 1) {
                 tc.generateTrainingCentre(0, 2);
             } else {
+                // if we have 2 bootcamps open we don't generate another one
                 if(countBootcamps == 2) {
                     tc.generateTrainingCentre(1, 3);
                 } else {
+                    // generating randomly any training centers
                     tc.generateTrainingCentre(0, 3);
                 }
             }
@@ -160,17 +164,17 @@ public class ManageTrainees {
                     trainingClosed(priorityWaitingList, trainingCentre, wl);
                 } else {
                     int minimumCapacityBootcamp = 475;
+                    int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
                     if(trainingCentre instanceof BootCamp && trainingCentre.getMonths() > 3 &&
                     trainingCentre.getCapacity() > minimumCapacityBootcamp) {
-                        int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
                         trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
                     }
                 }
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
                 System.out.println("end centre");
             }
-            System.out.println("size training centres: " + tc.getTrainingCentres().size());
-            System.out.println("Month Ended\n\n");
+            System.out.println("month " + i + " ended");
+            System.out.println("size training centres " + tc.getTrainingCentres().size());
         }
     }
     // adding trainees to waiting list with index 0 so we give priority
@@ -178,10 +182,21 @@ public class ManageTrainees {
     public void trainingClosed(int priorityWaitingList, TrainingCentre trainingCentre,
                                WaitingList wl) {
         trainingCentre.setClosed(true);
-        for(int k = 0; k < priorityWaitingList; k++) {
-            Trainee priorityTrainee = trainingCentre.getTrainee();
-            wl.getWaitingList().add(0, priorityTrainee);
-            trainingCentre.removeTrainees();
+        List<Trainee> traineesListGoingIntoWaiting = trainingCentre.getTraineesFromCenter();
+        Iterator<Trainee> iterator = traineesListGoingIntoWaiting.iterator();
+
+        if(priorityWaitingList > 0) {
+            while(iterator.hasNext()) {
+                Trainee priorityTrainee = iterator.next();
+                wl.getWaitingList().add(0, priorityTrainee);
+                iterator.remove();
+                priorityWaitingList--;
+
+                if(priorityWaitingList == 0) {
+                    break;
+                }
+                // t.removeNewHired(trainee);
+            }
         }
     }
 }
