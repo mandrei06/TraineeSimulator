@@ -173,11 +173,13 @@ public class ManageTrainees {
                 manageCentres(trainingCentre, wl, traineesGoingIntoEachCentre,
                         trainee);
 
+                // calculating how many trainees we need to put in waiting list
                 int priorityWaitingList = trainingCentre instanceof TrainingHub ?
                         100 - trainingCentre.getCapacity() : 200 -
                         trainingCentre.getCapacity();
 
                 // bootcamps can remain open up to 3 months without closing
+                // if training center has less than 25 trainees in one month it will be closed
                 int minimumCapacity = trainingCentre instanceof TrainingHub ? 75 : 175;
                 if(trainingCentre.getMonths() > 1 &&
                         trainingCentre.getCapacity() > minimumCapacity &&
@@ -186,8 +188,12 @@ public class ManageTrainees {
                     // and removing them from the list of the centre
                     trainingClosed(priorityWaitingList, trainingCentre, wl);
                 } else {
+                    // if training center has less than 25 trainees in one month it will be closed
+                    // bootcamps can remain open up to 3 months without closing
                     int minimumCapacityBootcamp = 475;
+                    // calculating how many trainees we need to put in waiting list
                     int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
+
                     if(trainingCentre instanceof BootCamp && trainingCentre.getMonths() > 3 &&
                     trainingCentre.getCapacity() > minimumCapacityBootcamp) {
                         trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
@@ -210,20 +216,22 @@ public class ManageTrainees {
     public void trainingClosed(int priorityWaitingList, TrainingCentre trainingCentre,
                                WaitingList wl) {
         trainingCentre.setClosed(true);
+        // getting the list of trainees of training center
         List<Trainee> traineesListGoingIntoWaiting = trainingCentre.getTraineesFromCenter();
         Iterator<Trainee> iterator = traineesListGoingIntoWaiting.iterator();
 
         if(priorityWaitingList > 0) {
             while(iterator.hasNext()) {
                 Trainee priorityTrainee = iterator.next();
+                // adding to the beginning of waiting list priority trainees
                 wl.getWaitingList().add(0, priorityTrainee);
+                // removing trainees from training center list
                 iterator.remove();
                 priorityWaitingList--;
 
                 if(priorityWaitingList == 0) {
                     break;
                 }
-                // t.removeNewHired(trainee);
             }
         }
     }
