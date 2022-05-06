@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BootCamp extends TrainingCentre implements TrainingCentersInterface {
-
-
     private static List<Trainee> bootcampTrainees = new ArrayList<>();
 
     public BootCamp(int capacity, boolean closed, String course,

@@ -5,16 +5,16 @@ import controller.GenerateRandomCourse;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Trainee {
-    private String course;
+public class Trainee extends Person {
     public static List<Trainee> trainees = new LinkedList<>();
+    public static List<Trainee> bench = new LinkedList<>();
 
-    public Trainee(String course) {
-        this.course = course;
+    public static List<Trainee> getBench() {
+        return bench;
     }
 
-    public String getCourse() {
-        return course;
+    public Trainee(String course, int months) {
+        super(course, months);
     }
 
     public List<Trainee> getTrainees() {
@@ -27,15 +27,11 @@ public class Trainee {
             // generating random course for trainee
             GenerateRandomCourse gc = new GenerateRandomCourse();
             String course = gc.generateRandomCourse();
-            trainee = new Trainee(course);
+            trainee = new Trainee(course, 0);
             this.trainees.add(trainee);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return trainee;
-    }
-
-    public void removeNewHired(Trainee trainee) {
-        this.trainees.remove(trainee);
     }
 }

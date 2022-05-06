@@ -15,7 +15,6 @@ public class ManageTrainees {
         // this variable will be used to count actually how many trainees went
         // to the training centre from trainee list (new hires)
         int counter = 0;
-
         // going thourgh the list of trainees (when we generate a new trainee we put
         // them inside this list)
         while(iterator.hasNext()) {
@@ -54,7 +53,6 @@ public class ManageTrainees {
                 // this variable will be used to count actually how many trainees went
                 // to the training centre from waiting list
                 int counter = 0;
-
                 // going through the waiting list
                 while(iterator.hasNext()) {
                     Trainee traineeWaiting = iterator.next();
@@ -79,20 +77,12 @@ public class ManageTrainees {
                 }
 
                 System.out.println("trainees went to training centre from waiting " + counter);
-
-                // once we finish we the waiting list if there are other trainees to place
-                // we continue fill the training center if we have more trainees to place
-                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
-                t.getTrainees().size() > 0) {
-                    manageNewHires(t, trainingCentre, traineesGoingIntoEachCentre);
-                }
-            } else {
-                // if there is nobody in waiting list we fill the trainees from trainees list
-                // (when we generate a new trainee we put them inside this list)
-                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
-                        t.getTrainees().size() > 0) {
-                    manageNewHires(t, trainingCentre, traineesGoingIntoEachCentre);
-                }
+            }
+            // once we finish we the waiting list if there are other trainees to place
+            // we continue fill the training center if we have more trainees to place
+            if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
+            t.getTrainees().size() > 0) {
+                manageNewHires(t, trainingCentre, traineesGoingIntoEachCentre);
             }
 
             List<Trainee> traineesListGoingToWaiting = t.getTrainees();
@@ -118,7 +108,7 @@ public class ManageTrainees {
     public void manageTrainees(int months) {
         WaitingList wl = new WaitingList();
         GenerateRandomNumber gn = new GenerateRandomNumber();
-        Trainee t = new Trainee("any");
+        Trainee t = new Trainee("any", 0);
         TrainingCentre tc = new TrainingCentre(0,true,
                 "any", 0, 0);
 
@@ -138,30 +128,27 @@ public class ManageTrainees {
             // generating random training centres and putting them into a list
             // first month we can't have a TrainingHub
             int countBootcamps = 0;
-            for(int k = 0; k < tc.getTrainingCentres().size(); k++) {
-                TrainingCentre trainingCentre = tc.getTrainingCentres().get(k);
-                if(trainingCentre instanceof BootCamp) {
-                    countBootcamps++;
 
-                    if(trainingCentre.isClosed()) {
-                        countBootcamps--;
-                    }
+            for(TrainingCentre trainingCentre: tc.getTrainingCentres()) {
+                if(trainingCentre instanceof BootCamp && !trainingCentre.isClosed()) {
+                    countBootcamps++;
+                }
+                if(trainingCentre.isClosed() && trainingCentre instanceof BootCamp) {
+                    countBootcamps--;
                 }
             }
 
             // first month we don't generate training hubs
             if(i == 1) {
-                tc.generateTrainingCentre(0, 2);
-            } else {
+                tc.generateTrainingCentre(0, 1);
                 // if we have 2 bootcamps open we don't generate another one
-                if(countBootcamps == 2) {
+            } else if(countBootcamps == 2) {
                     tc.generateTrainingCentre(1, 3);
-                } else {
-                    // generating randomly any training centers
-                    tc.generateTrainingCentre(0, 3);
-                }
+            } else {
+                // generating randomly any training centers
+                tc.generateTrainingCentre(0, 3);
             }
-
+            // generating random number (0-50) of trainees going into each center
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
             System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
 
@@ -169,14 +156,6 @@ public class ManageTrainees {
             for(int j = 0; j < tc.getTrainingCentres().size(); j++) {
                 TrainingCentre trainingCentre = tc.getTrainingCentres().get(j);
 
-                // giving info about which training centre was generated
-                if(trainingCentre instanceof BootCamp) {
-                    System.out.println("bootcamp generated");
-                } else if(trainingCentre instanceof TechCentre) {
-                    System.out.println("tech centre generated");
-                } else {
-                    System.out.println("training hub generated");
-                }
                 // handling centres and trainees
                 manageCentres(trainingCentre, wl, traineesGoingIntoEachCentre,
                         trainee);
@@ -234,8 +213,33 @@ public class ManageTrainees {
                 }
                 // we let a month pass and then increase the months
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
+                // we will use this variable in order to rpint how many we put in the bench
+                int countTraineesToBench = 0;
+                List<Trainee> traineesFromCenter = trainingCentre.getTraineesFromCenter();
+                Iterator<Trainee> iterator = traineesFromCenter.iterator();
+
+                // going through the list of trainees inside a training center
+                while(iterator.hasNext()) {
+                    Trainee tr = iterator.next();
+                    // after one month we increase the months of the trainee
+                    tr.setMonths(tr.getMonths() + 1);
+
+                    // at 3 months trainee goes to the bench and it gets removed from
+                    // training center list
+                    if(tr.getMonths() == 3) {
+                        iterator.remove();
+                        tr.getBench().add(tr);
+                        countTraineesToBench++;
+                    }
+                }
+                System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
+                        1 ? "s: " : " ") + countTraineesToBench + " went to bench");
+                System.out.println("bench " + t.getBench().size());
             }
             System.out.println("month " + i + " ended");
+
+            // at the end of the month we increase the months of trainees (they graduate after 3
+            // months and go to the bench)
 
             int bootcamp = 0;
             int techCenter = 0;
@@ -261,12 +265,21 @@ public class ManageTrainees {
                 }
             }
             if(i == months) {
-                System.out.println("we have bootcamp: " + bootcamp + " open");
-                System.out.println("we have bootcamp: " + bootcampClosed + " closed");
-                System.out.println("we have tech centre: " + techCenter + " open");
-                System.out.println("we have tech centre: " + techCenterClosed + " closed");
-                System.out.println("we have training hub: " + trainingHub + " open");
-                System.out.println("we have training hub: " + trainingHubClosed + " closed");
+                System.out.println("we have bootcamp" +
+                        (bootcamp == 0 || bootcamp > 1 ? "s: ": ": ") + bootcamp + " open");
+                System.out.println("we have bootcamp" +
+                        (bootcampClosed == 0 || bootcampClosed > 1 ? "s: ": ": ")
+                        + bootcampClosed + " closed");
+                System.out.println("we have tech centre" +
+                        (techCenter == 0 || techCenter > 1 ? "s: ": ": ") + techCenter + " open");
+                System.out.println("we have tech centre" +
+                        (techCenterClosed == 0 || techCenterClosed > 1 ? "s: ": ": ")
+                        + techCenterClosed + " closed");
+                System.out.println("we have training hub" +
+                        (trainingHub == 0 || trainingHub > 1 ? "s: ": ": ") + trainingHub + " open");
+                System.out.println("we have training hub" +
+                        (trainingHubClosed == 0 || trainingHubClosed > 1 ? "s: ": ": ")
+                        + trainingHubClosed + " closed");
             }
         }
     }

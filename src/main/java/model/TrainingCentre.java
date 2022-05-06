@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingCentre implements TrainingCentersInterface {
-    private List<TrainingCentre> trainingCentres = new ArrayList();
-    private static int capacity;
-    private static boolean closed;
-    private static String course;
-    private static int months;
-    private static int lowAttendance;
+    private static List<TrainingCentre> trainingCentres = new ArrayList();
+    private int capacity;
+    private boolean closed;
+    private String course;
+    private int months;
+    private int lowAttendance;
 
     public int getLowAttendance() {
         return lowAttendance;
@@ -83,6 +83,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                     trainingCentre = new BootCamp(500, false,
                             "java c# data devops business", 0, 0);
                     this.storeTrainingCentres(trainingCentre);
+                    System.out.println("bootcamp generated");
                 }
                 case 1 -> {
                     // generating random course which will be assigned to the TechCentre
@@ -91,6 +92,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                     trainingCentre = new TechCentre(200, false,
                             course, 0, 0);
                     this.storeTrainingCentres(trainingCentre);
+                    System.out.println("tech centre generated");
                 }
                 case 2 -> {
                     // generating a random number between 1 and 3 in order to generate
@@ -117,7 +119,4 @@ public class TrainingCentre implements TrainingCentersInterface {
 
     @Override
     public void storeTrainees(Trainee trainee) {}
-
-    @Override
-    public void removeTrainees() {};
 }
