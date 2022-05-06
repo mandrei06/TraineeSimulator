@@ -12,9 +12,9 @@ public class TraineeDisplay {
                 "\nNumber of trainees currently training: "+ numberOfTrainees +
                 "\nNumber of trainees on the waiting list: "+ list);
     }
+    public static void monthlyReport(boolean month){
+
+
+    }
 
 }
-//number of open centres
-//number of full centres
-//number of trainees currently training
-//number of trainees on the waiting list

