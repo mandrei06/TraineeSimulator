@@ -20,14 +20,16 @@ public class ManageTrainees {
                 while(iterator1.hasNext()) {
                     Trainee traineeWaiting = iterator1.next();
 
-                    // storing trainees inside the training center list
-                    trainingCentre.storeTrainees(traineeWaiting);
-                    // removing trainees from waiting list
-                    iterator1.remove();
-                    // reducing the generated random number (50-100)
-                    traineesGoingIntoEachCentre--;
-                    // reducing capacity of training center
-                    trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                    if(trainingCentre.getCourse().contains(traineeWaiting.getCourse())) {
+                        // storing trainees inside the training center list
+                        trainingCentre.storeTrainees(traineeWaiting);
+                        // removing trainees from waiting list
+                        iterator1.remove();
+                        // reducing the generated random number (50-100)
+                        traineesGoingIntoEachCentre--;
+                        // reducing capacity of training center
+                        trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                    }
 
                     // stopping the loops if we can't place more trainees or if the training center
                     // is full
@@ -48,14 +50,16 @@ public class ManageTrainees {
                     while(iterator2.hasNext()) {
                         Trainee trainee = iterator2.next();
 
-                        // storing trainees inside the training center list
-                        trainingCentre.storeTrainees(trainee);
-                        // removing trainees from trainees list
-                        iterator2.remove();
-                        // reducing the generated random number (50-100)
-                        traineesGoingIntoEachCentre--;
-                        // reducing capacity of training center
-                        trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                        if(trainingCentre.getCourse().contains(trainee.getCourse())) {
+                            // storing trainees inside the training center list
+                            trainingCentre.storeTrainees(trainee);
+                            // removing trainees from trainees list
+                            iterator2.remove();
+                            // reducing the generated random number (50-100)
+                            traineesGoingIntoEachCentre--;
+                            // reducing capacity of training center
+                            trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                        }
 
                         // stopping the loops if we can't place more trainees or if the training
                         // center is full
@@ -76,14 +80,16 @@ public class ManageTrainees {
                     while(iterator3.hasNext()) {
                         Trainee trainee = iterator3.next();
 
-                        // storing trainees inside the training center list
-                        trainingCentre.storeTrainees(trainee);
-                        // removing trainees from trainees list
-                        iterator3.remove();
-                        // reducing the generated random number (50-100)
-                        traineesGoingIntoEachCentre--;
-                        // reducing capacity of training center
-                        trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                        if(trainingCentre.getCourse().contains(trainee.getCourse())) {
+                            // storing trainees inside the training center list
+                            trainingCentre.storeTrainees(trainee);
+                            // removing trainees from trainees list
+                            iterator3.remove();
+                            // reducing the generated random number (50-100)
+                            traineesGoingIntoEachCentre--;
+                            // reducing capacity of training center
+                            trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                        }
 
                         // stopping the loops if we can't place more trainees or if the training
                         // center is full
@@ -119,7 +125,8 @@ public class ManageTrainees {
         WaitingList wl = new WaitingList();
         GenerateRandomNumber gn = new GenerateRandomNumber();
         Trainee t = new Trainee("any");
-        TrainingCentre tc = new TrainingCentre(0,true,"any", 0);
+        TrainingCentre tc = new TrainingCentre(0,true,
+                "any", 0, 0);
 
         // starting from 1st month
         for(int i = 1; i <= months; i++) {
@@ -191,18 +198,21 @@ public class ManageTrainees {
                     // if training center has less than 25 trainees in one month it will be closed
                     // bootcamps can remain open up to 3 months without closing
                     int minimumCapacityBootcamp = 475;
-                    // calculating how many trainees we need to put in waiting list
-                    int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
 
-                    if(trainingCentre instanceof BootCamp && trainingCentre.getMonths() > 3 &&
-                    trainingCentre.getCapacity() > minimumCapacityBootcamp) {
-                        trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
+                    if(trainingCentre.getCapacity() > minimumCapacityBootcamp) {
+                        trainingCentre.setLowAttendance(trainingCentre.getLowAttendance() + 1);
                     }
                 }
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
 
+                // calculating how many trainees we need to put in waiting list
+                int priorityWaitingListBootcamp = 500 - trainingCentre.getCapacity();
+
+
                 if(trainingCentre instanceof BootCamp && !trainingCentre.isClosed()) {
-                    ((BootCamp) trainingCentre).setMonth1(500 - trainingCentre.getCapacity());
+                    if(trainingCentre.getLowAttendance() > 2) {
+                        trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
+                    }
                 }
 
                 System.out.println("end centre");

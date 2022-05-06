@@ -12,6 +12,15 @@ public class TrainingCentre implements TrainingCentersInterface {
     private boolean closed;
     private String course;
     private int months;
+    private int lowAttendance;
+
+    public int getLowAttendance() {
+        return lowAttendance;
+    }
+
+    public void setLowAttendance(int lowAttendance) {
+        this.lowAttendance = lowAttendance;
+    }
 
     public int getMonths() {
         return months;
@@ -45,11 +54,13 @@ public class TrainingCentre implements TrainingCentersInterface {
         this.closed = closed;
     }
 
-    public TrainingCentre(int capacity, boolean closed, String course, int months) {
+    public TrainingCentre(int capacity, boolean closed, String course, int months,
+                          int lowAttendance) {
         this.capacity = capacity;
         this.closed = closed;
         this.course = course;
         this.months = months;
+        this.lowAttendance = lowAttendance;
     }
 
     public void storeTrainingCentres(TrainingCentre trainingCentre) {
@@ -70,7 +81,7 @@ public class TrainingCentre implements TrainingCentersInterface {
             switch (randomNumber) {
                 case 0 -> {
                     trainingCentre = new BootCamp(500, false,
-                            "java c# data devops business", 0);
+                            "java c# data devops business", 0, 0);
                     this.storeTrainingCentres(trainingCentre);
                 }
                 case 1 -> {
@@ -78,7 +89,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                     GenerateRandomCourse gc = new GenerateRandomCourse();
                     String course = gc.generateRandomCourse();
                     trainingCentre = new TechCentre(200, false,
-                            course, 0);
+                            course, 0, 0);
                     this.storeTrainingCentres(trainingCentre);
                 }
                 case 2 -> {
@@ -87,7 +98,7 @@ public class TrainingCentre implements TrainingCentersInterface {
                     int randomNumberHub = gn.generateRandomNumber(1, 4);
                     for(int i = 1; i <= randomNumberHub; i++) {
                         trainingCentre = new TrainingHub(100, false,
-                                "java c# data devops business", 0);
+                                "java c# data devops business", 0, 0);
                         this.storeTrainingCentres(trainingCentre);
                     }
                     System.out.println("training hub generated " + randomNumberHub);
