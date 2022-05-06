@@ -1,4 +1,4 @@
-package controller;
+/* package controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,3 +27,6 @@ public class GenerateRandomCourseTest {
     }
 
 }
+
+
+ */

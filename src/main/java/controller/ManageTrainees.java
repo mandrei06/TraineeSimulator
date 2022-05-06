@@ -14,59 +14,63 @@ public class ManageTrainees {
         if(!trainingCentre.isClosed()) {
             System.out.println("old capacity: " + trainingCentre.getCapacity());
             if(wl.getWaitingList().size() > 0 && trainingCentre.getCapacity() > 0) {
-                for(int i = 0; i < wl.getWaitingList().size(); i++) {
-                    Trainee traineeWaiting = wl.getWaitingList().get(i);
+                List<Trainee> traineeWaitingList = wl.getWaitingList();
+                Iterator<Trainee> iterator1 = traineeWaitingList.iterator();
 
-                    if(trainingCentre.getCourse().contains(traineeWaiting.getCourse())) {
-                        trainingCentre.storeTrainees(traineeWaiting);
-                        wl.deleteWaitingList(traineeWaiting);
+                while(iterator1.hasNext()) {
+                    Trainee traineeWaiting = iterator1.next();
+
+                    trainingCentre.storeTrainees(traineeWaiting);
+                    // wl.deleteWaitingList(traineeWaiting);
+                    iterator1.remove();
+                    traineesGoingIntoEachCentre--;
+                    trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+
+                    if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0) {
+                        break;
+                    }
+                }
+
+                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0) {
+                    List<Trainee> traineeList = t.getTrainees();
+                    Iterator<Trainee> iterator2 = traineeList.iterator();
+
+                    while(iterator2.hasNext()) {
+                        Trainee trainee = iterator2.next();
+
+                        trainingCentre.storeTrainees(trainee);
+                        iterator2.remove();
                         traineesGoingIntoEachCentre--;
                         trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
 
-                        if(traineesGoingIntoEachCentre == 0 || trainingCentre.getCapacity() == 0) {
+                        if(traineesGoingIntoEachCentre == 0 ||
+                                trainingCentre.getCapacity() == 0) {
                             break;
-                        }
-                    }
-                }
-                // if waiting list cannot remove any trainees we start to fill the ones
-                // that we just hired
-                if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0) {
-                    for(int j = 0; j < t.getTrainees().size(); j++) {
-                        Trainee trainee = t.getTrainees().get(j);
-
-                        if(trainingCentre.getCourse().contains(trainee.getCourse())) {
-                            trainingCentre.storeTrainees(trainee);
-                            t.removeNewHired(trainee);
-                            traineesGoingIntoEachCentre--;
-                            trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
-
-                            if(traineesGoingIntoEachCentre == 0 ||
-                                    trainingCentre.getCapacity() == 0) {
-                                break;
-                            }
                         }
                     }
                 }
             } else {
                 if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0) {
-                    for(int i = 0; i < t.getTrainees().size(); i++) {
-                        Trainee trainee = t.getTrainees().get(i);
+                    List<Trainee> traineeList = t.getTrainees();
+                    Iterator<Trainee> iterator3 = traineeList.iterator();
 
-                        if(trainingCentre.getCourse().contains(t.getCourse())) {
-                            // storing into center
-                            trainingCentre.storeTrainees(trainee);
-                            t.removeNewHired(trainee);
-                            traineesGoingIntoEachCentre--;
-                            trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+                    while(iterator3.hasNext()) {
+                        Trainee trainee = iterator3.next();
 
-                            if(traineesGoingIntoEachCentre == 0 ||
-                                    trainingCentre.getCapacity() == 0) {
-                                break;
-                            }
+                        trainingCentre.storeTrainees(trainee);
+                        // t.removeNewHired(trainee);
+                        iterator3.remove();
+                        traineesGoingIntoEachCentre--;
+                        trainingCentre.setCapacity(trainingCentre.getCapacity() - 1);
+
+                        if(traineesGoingIntoEachCentre == 0 ||
+                                trainingCentre.getCapacity() == 0) {
+                            break;
                         }
                     }
                 }
             }
+
             System.out.println("t.getTrainees().size()" + t.getTrainees().size());
             List<Trainee> traineesListGoingToWaiting = t.getTrainees();
             Iterator<Trainee> iterator = traineesListGoingToWaiting.iterator();
