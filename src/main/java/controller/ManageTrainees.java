@@ -327,7 +327,6 @@ public class ManageTrainees {
                 // every month we increase the months of client by 1
                 client.setMonths(client.getMonths() + 1);
             }
-
             // end of simulation
             if(i == months) {
                 System.out.println("new client" + ((newClients == 0 || newClients
