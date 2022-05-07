@@ -126,10 +126,9 @@ public class ManageTrainees {
             for(int j = 0; j < newHires; j++) {
                 trainee = t.generateTrainee();
             }
-            // generating random training centres and putting them into a list
-            // first month we can't have a TrainingHub
             int countBootcamps = 0;
-
+            // if we have 2 bootcamps open we can't generate another one
+            // counting open bootcamps
             for(TrainingCentre trainingCentre: tc.getTrainingCentres()) {
                 if(trainingCentre instanceof BootCamp && !trainingCentre.isClosed()) {
                     countBootcamps++;
@@ -140,8 +139,8 @@ public class ManageTrainees {
             // first month we don't generate training hubs
             if(i == 1) {
                 tc.generateTrainingCentre(0, 1);
-                // if we have 2 bootcamps open we don't generate another one
             }
+            // if we have 2 bootcamps open we don't generate another one
             if(countBootcamps == 2) {
                     tc.generateTrainingCentre(1, 3);
             } else {
