@@ -209,15 +209,9 @@ public class ManageTrainees {
                 }
                 // we let a month pass and then increase the months
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
-                // increasing the month of trainees inside training center
-                trainingCentre.increaseMonth();
-            }
-            System.out.println("month " + i + " ended");
 
-            // we will use this variable in order to rpint how many we put in the bench
-            int countTraineesToBench = 0;
-
-            for(TrainingCentre trainingCentre: tc.getTrainingCentres()) {
+                // we will use this variable in order to print how many we put in the bench
+                int countTraineesToBench = 0;
                 List<Trainee> traineesFromCenter = trainingCentre.getTraineesFromCenter();
                 Iterator<Trainee> iterator = traineesFromCenter.iterator();
 
@@ -233,11 +227,25 @@ public class ManageTrainees {
                         countTraineesToBench++;
                     }
                 }
+                System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
+                        1 ? "s: " : " ") + countTraineesToBench + " went to bench");
+                System.out.println("bench " + t.getBench().size());
+            }
+            System.out.println("month " + i + " ended");
+
+            // at the end of the month we increase the month of trainees inside a training center
+            // by one
+            for(Trainee bootcampTrainee: BootCamp.getBootcampTrainees()) {
+                bootcampTrainee.setMonths(bootcampTrainee.getMonths() + 1);
             }
 
-            System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
-                    1 ? "s: " : " ") + countTraineesToBench + " went to bench");
-            System.out.println("bench " + t.getBench().size());
+            for(Trainee techCenterTrainee: TechCentre.getTechCentreTrainees()) {
+                techCenterTrainee.setMonths(techCenterTrainee.getMonths() + 1);
+            }
+
+            for(Trainee trainingHubTrainee: TrainingHub.getTrainingHubTrainees()) {
+                trainingHubTrainee.setMonths(trainingHubTrainee.getMonths() + 1);
+            }
 
             int bootcamp = 0;
             int techCenter = 0;

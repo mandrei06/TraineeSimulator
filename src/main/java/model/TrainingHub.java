@@ -6,6 +6,10 @@ import java.util.List;
 public class TrainingHub extends TrainingCentre implements TrainingCentersInterface {
     private static List<Trainee> trainingHubTrainees = new ArrayList<>();
 
+    public static List<Trainee> getTrainingHubTrainees() {
+        return trainingHubTrainees;
+    }
+
     public void storeTrainees(Trainee trainee) {
         this.trainingHubTrainees.add(trainee);
     }
@@ -18,12 +22,5 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
     public List<Trainee> getTraineesFromCenter() {
         List<Trainee> trainees = this.trainingHubTrainees;
         return trainees;
-    }
-
-    public void increaseMonth() {
-        for(int i = 0; i < trainingHubTrainees.size(); i++) {
-            Trainee trainee = trainingHubTrainees.get(i);
-            trainee.setMonths(trainee.getMonths() + 1);
-        }
     }
 }

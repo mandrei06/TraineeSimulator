@@ -6,6 +6,10 @@ import java.util.List;
 public class TechCentre extends TrainingCentre implements TrainingCentersInterface {
     private static List<Trainee> techCentreTrainees = new ArrayList<>();
 
+    public static List<Trainee> getTechCentreTrainees() {
+        return techCentreTrainees;
+    }
+
     public void storeTrainees(Trainee trainee) {
         this.techCentreTrainees.add(trainee);
     }
@@ -18,12 +22,5 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
     public List<Trainee> getTraineesFromCenter() {
         List<Trainee> trainees = this.techCentreTrainees;
         return trainees;
-    }
-
-    public void increaseMonth() {
-        for(int i = 0; i < techCentreTrainees.size(); i++) {
-            Trainee trainee = techCentreTrainees.get(i);
-            trainee.setMonths(trainee.getMonths() + 1);
-        }
     }
 }
