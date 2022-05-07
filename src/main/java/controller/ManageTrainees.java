@@ -134,14 +134,11 @@ public class ManageTrainees {
                     countBootcamps++;
                 }
             }
-            System.out.println("countBootcamps" + countBootcamps);
-
             // first month we don't generate training hubs
             if(i == 1) {
                 tc.generateTrainingCentre(0, 1);
-            }
-            // if we have 2 bootcamps open we don't generate another one
-            if(countBootcamps == 2) {
+                // if we have 2 bootcamps open we don't generate another one
+            } else if(countBootcamps == 2) {
                     tc.generateTrainingCentre(1, 3);
             } else {
                 // generating randomly any training centers
