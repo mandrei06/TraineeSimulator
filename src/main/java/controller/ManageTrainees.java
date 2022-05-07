@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ManageTrainees {
@@ -45,7 +44,7 @@ public class ManageTrainees {
     // function that will be used when looping the training centres
     public void manageCentres(TrainingCentre trainingCentre, WaitingList wl,
                               int traineesGoingIntoEachCentre, Trainee t) {
-        if(!trainingCentre.isClosed()) {
+        if(!trainingCentre.isClosed() && traineesGoingIntoEachCentre > 0) {
             System.out.println("old capacity: " + trainingCentre.getCapacity());
             // if there are any trainees in the waiting list we give them priority
             if(wl.getWaitingList().size() > 0 && trainingCentre.getCapacity() > 0) {
@@ -78,9 +77,10 @@ public class ManageTrainees {
                 }
 
                 System.out.println("trainees went to training centre from waiting " + counter);
+                // once we finish we the waiting list if there are other trainees to place
+                // we continue fill the training center if we have more trainees to place
             }
-            // once we finish we the waiting list if there are other trainees to place
-            // we continue fill the training center if we have more trainees to place
+
             if(traineesGoingIntoEachCentre > 0 && trainingCentre.getCapacity() > 0 &&
             t.getTrainees().size() > 0) {
                 manageNewHires(t, trainingCentre, traineesGoingIntoEachCentre);
@@ -209,30 +209,34 @@ public class ManageTrainees {
                 }
                 // we let a month pass and then increase the months
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
-                // we will use this variable in order to rpint how many we put in the bench
-                int countTraineesToBench = 0;
+            }
+            System.out.println("month " + i + " ended");
+
+            // we will use this variable in order to rpint how many we put in the bench
+            int countTraineesToBench = 0;
+
+            for(TrainingCentre trainingCentre: tc.getTrainingCentres()) {
                 List<Trainee> traineesFromCenter = trainingCentre.getTraineesFromCenter();
                 Iterator<Trainee> iterator = traineesFromCenter.iterator();
 
                 // going through the list of trainees inside a training center
                 while(iterator.hasNext()) {
                     Trainee tr = iterator.next();
-                    // after one month we increase the months of the trainee
                     tr.setMonths(tr.getMonths() + 1);
 
                     // at 3 months trainee goes to the bench and it gets removed from
                     // training center list
-                    if(tr.getMonths() == 3) {
-                        iterator.remove();
+                    if(tr.getMonths() > 2) {
                         tr.getBench().add(tr);
+                        iterator.remove();
                         countTraineesToBench++;
                     }
                 }
-                System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
-                        1 ? "s: " : " ") + countTraineesToBench + " went to bench");
-                System.out.println("bench " + t.getBench().size());
             }
-            System.out.println("month " + i + " ended");
+
+            System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
+                    1 ? "s: " : " ") + countTraineesToBench + " went to bench");
+            System.out.println("bench " + t.getBench().size());
 
             int bootcamp = 0;
             int techCenter = 0;
@@ -276,17 +280,17 @@ public class ManageTrainees {
             for(Client client: clientGenerated.getClients()) {
                 int counter = 0;
                 List<Trainee> traineesFromBench = t.getBench();
-                Iterator<Trainee> iterator = traineesFromBench.iterator();
+                Iterator<Trainee> iterator2 = traineesFromBench.iterator();
 
                 if(client.isHappy()) {
                     // going through the bench
-                    while(iterator.hasNext()) {
-                        Trainee trainee1 = iterator.next();
+                    while(iterator2.hasNext()) {
+                        Trainee trainee1 = iterator2.next();
 
                         // if trainee matches the course of the client we remove the trainee
                         // from the bench and increase the counter
                         if(client.getCourse().equals(trainee1.getCourse())) {
-                            iterator.remove();
+                            iterator2.remove();
                             counter++;
                         }
 
