@@ -32,6 +32,7 @@ public class Client extends Person {
             String courseChosen = gc.generateRandomCourse();
 
             Client client = new Client(courseChosen, 0, true);
+            System.out.println("client generated: " + courseChosen);
             this.clients.add(client);
             return client;
         } catch (Exception e) {

@@ -133,8 +133,7 @@ public class ManageTrainees {
             for(TrainingCentre trainingCentre: tc.getTrainingCentres()) {
                 if(trainingCentre instanceof BootCamp && !trainingCentre.isClosed()) {
                     countBootcamps++;
-                }
-                if(trainingCentre.isClosed() && trainingCentre instanceof BootCamp) {
+                } else if(trainingCentre.isClosed() && trainingCentre instanceof BootCamp) {
                     countBootcamps--;
                 }
             }
@@ -239,9 +238,6 @@ public class ManageTrainees {
             }
             System.out.println("month " + i + " ended");
 
-            // at the end of the month we increase the months of trainees (they graduate after 3
-            // months and go to the bench)
-
             int bootcamp = 0;
             int techCenter = 0;
             int trainingHub = 0;
@@ -273,17 +269,21 @@ public class ManageTrainees {
                 clientGenerated = c.generateClient();
             }
 
-            // every 12 months a client takes a random number of trainees from 15-30
+            // every months a client takes a random number of trainees from 15-30
             int randomTraineesFromBench = gn.generateRandomNumber(15, 31);
+
+            int countUnhappyClients = 0;
+            int countHappyClients = 0;
+            int newClients = 0;
 
             // going through list of clients
             for(Client client: clientGenerated.getClients()) {
                 int counter = 0;
-                if(client.isHappy()) {
-                    List<Trainee> traineesFromBench = t.getBench();
-                    Iterator<Trainee> iterator = traineesFromBench.iterator();
+                List<Trainee> traineesFromBench = t.getBench();
+                Iterator<Trainee> iterator = traineesFromBench.iterator();
 
-                    // going thourgh the bench
+                if(client.isHappy()) {
+                    // going through the bench
                     while(iterator.hasNext()) {
                         Trainee trainee1 = iterator.next();
 
@@ -301,12 +301,41 @@ public class ManageTrainees {
                         }
                     }
                 }
-                System.out.println("counter " + counter);
-            }
-            System.out.println("clients " + clientGenerated.getClients().size());
-            System.out.println("bench " + trainee.getBench().size());
 
+                // if client doesn't get enough trainees from bench we will set happy to false
+                if(counter < randomTraineesFromBench) {
+                    client.setHappy(false);
+                }
+
+                // counting new, happy and unhappy clients
+                if(client.isHappy() && client.getMonths() > 11) {
+                    countHappyClients++;
+                }
+                if(!client.isHappy() && client.getMonths() > 11) {
+                    countUnhappyClients++;
+                }
+                if (client.getMonths() < 12) {
+                    newClients++;
+                }
+
+                if(client.isHappy() && client.getMonths() > 12) {
+                    // resetting months client to 0 so that we can have a track for a whole year
+                    // if they collect enough trainees
+                    client.setMonths(1);
+                }
+
+                // every month we increase the months of client by 1
+                client.setMonths(client.getMonths() + 1);
+            }
+
+            // end of simulation
             if(i == months) {
+                System.out.println("new client" + ((newClients == 0 || newClients
+                        > 1) ? "s: " : ": ") + newClients);
+                System.out.println("happy client" + ((countHappyClients == 0 || countHappyClients
+                        > 1) ? "s: " : ": ") + countHappyClients);
+                System.out.println("unhappy client" + ((countUnhappyClients == 0 ||
+                        countHappyClients > 1) ? "s: " : ": ") + countUnhappyClients);
                 System.out.println("we have bootcamp" +
                         (bootcamp == 0 || bootcamp > 1 ? "s: ": ": ") + bootcamp + " open");
                 System.out.println("we have bootcamp" +
