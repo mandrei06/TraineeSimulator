@@ -209,6 +209,8 @@ public class ManageTrainees {
                 }
                 // we let a month pass and then increase the months
                 trainingCentre.setMonths(trainingCentre.getMonths() + 1);
+                // increasing the month of trainees inside training center
+                trainingCentre.increaseMonth();
             }
             System.out.println("month " + i + " ended");
 
@@ -222,7 +224,6 @@ public class ManageTrainees {
                 // going through the list of trainees inside a training center
                 while(iterator.hasNext()) {
                     Trainee tr = iterator.next();
-                    tr.setMonths(tr.getMonths() + 1);
 
                     // at 3 months trainee goes to the bench and it gets removed from
                     // training center list

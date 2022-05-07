@@ -19,4 +19,11 @@ public class TrainingHub extends TrainingCentre implements TrainingCentersInterf
         List<Trainee> trainees = this.trainingHubTrainees;
         return trainees;
     }
+
+    public void increaseMonth() {
+        for(int i = 0; i < trainingHubTrainees.size(); i++) {
+            Trainee trainee = trainingHubTrainees.get(i);
+            trainee.setMonths(trainee.getMonths() + 1);
+        }
+    }
 }

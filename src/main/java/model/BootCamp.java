@@ -19,4 +19,11 @@ public class BootCamp extends TrainingCentre implements TrainingCentersInterface
         List<Trainee> trainees = this.bootcampTrainees;
         return trainees;
     }
+
+    public void increaseMonth() {
+        for(int i = 0; i < bootcampTrainees.size(); i++) {
+            Trainee trainee = bootcampTrainees.get(i);
+            trainee.setMonths(trainee.getMonths() + 1);
+        }
+    }
 }

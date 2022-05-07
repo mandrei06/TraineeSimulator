@@ -119,4 +119,7 @@ public class TrainingCentre implements TrainingCentersInterface {
 
     @Override
     public void storeTrainees(Trainee trainee) {}
+
+    @Override
+    public void increaseMonth() {}
 }

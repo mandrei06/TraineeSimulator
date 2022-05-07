@@ -19,4 +19,11 @@ public class TechCentre extends TrainingCentre implements TrainingCentersInterfa
         List<Trainee> trainees = this.techCentreTrainees;
         return trainees;
     }
+
+    public void increaseMonth() {
+        for(int i = 0; i < techCentreTrainees.size(); i++) {
+            Trainee trainee = techCentreTrainees.get(i);
+            trainee.setMonths(trainee.getMonths() + 1);
+        }
+    }
 }
