@@ -1,4 +1,4 @@
-/*package model;
+package model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,24 +11,24 @@ class TraineeTest {
 
     @BeforeEach
     public void setTrainee() {
-        trainee = new Trainee("java");
+        trainee = new Trainee("java",0);
     }
 
     @Test
     void getCourse() {
-        Assertions.assertEquals(trainee.getCourse(), "java");
+        Assertions.assertEquals(Person.getCourse(), "java");
     }
 
     @Test
     void setCourse() {
-        trainee.setCourse("java");
-        Assertions.assertEquals(trainee.getCourse(), "java");
+        Person.setCourse("java");
+        Assertions.assertEquals(Person.getCourse(), "java");
     }
 
     @Test
     void getTrainees() {
         trainee.generateTrainee();
-        System.out.println(trainee.getTrainees().get(0).getCourse());
+        System.out.println(Person.getCourse());
     }
 
     @Test
@@ -40,4 +40,3 @@ class TraineeTest {
     }
 }
 
- */
