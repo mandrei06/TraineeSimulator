@@ -1,4 +1,4 @@
-/* package model;
+package model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,7 @@ class WaitingListTest {
     @BeforeEach
     public void setWaitingList() {
         waitingList = new WaitingList();
-        trainee = new Trainee("java");
+        trainee = new Trainee("java",0);
     }
 
     @Test
@@ -30,13 +30,6 @@ class WaitingListTest {
         Assertions.assertTrue(expected);
     }
 
-    @Test
-    void deleteWaitingList() {
-        waitingList.storeWaitingList(trainee);
-        waitingList.deleteWaitingList();
-        boolean expected = !waitingList.getWaitingList().contains(trainee);
-        Assertions.assertTrue(expected);
-    }
+
 }
 
- */

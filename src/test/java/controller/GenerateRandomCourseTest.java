@@ -1,4 +1,4 @@
-/* package controller;
+package controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +19,8 @@ public class GenerateRandomCourseTest {
     public void testGenerateRandomCourse() {
         String course = generateRandomCourse.generateRandomCourse();
         boolean expected = false;
-        List<String> coursesType= Arrays.asList("java","c#","data","devops","business");
-        if(coursesType.contains(course)) {
+        List<String> coursesType = Arrays.asList("java", "c#", "data", "devops", "business");
+        if (coursesType.contains(course)) {
             expected = true;
         }
         Assertions.assertTrue(expected);
@@ -29,4 +29,3 @@ public class GenerateRandomCourseTest {
 }
 
 
- */

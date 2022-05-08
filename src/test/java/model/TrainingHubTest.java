@@ -1,4 +1,4 @@
-/* package model;
+package model;
 
 import junit.framework.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -13,33 +13,25 @@ class TrainingHubTest {
 
     @BeforeEach
     public void setUp() {
-        trainingHub = new TrainingHub(100, false, "java", 8);
-        trainee = new Trainee("java");
+        trainingHub = new TrainingHub(100, false, "java", 12,0);
+        trainee = new Trainee("java",0);
     }
 
     @Test
     void storeTrainees() {
         trainingHub.storeTrainees(trainee);
-        boolean expected= trainingHub.getTrainee().equals(trainee);
+        boolean expected= trainingHub.getTraineesFromCenter().get(0).equals(trainee);
         Assertions.assertTrue(expected);
     }
 
-    @Test
-    void removeTrainees() {
-        trainingHub.storeTrainees(trainee);
-        trainingHub.removeTrainees();
-        boolean expected= trainingHub.getTrainingHubTrainees().isEmpty();
 
-        Assertions.assertTrue(expected);
-    }
 
     @Test
     void getTrainee() {
         trainingHub.storeTrainees(trainee);
-        Trainee result=new Trainee("java");
-        result=trainingHub.getTrainee();
-        Assert.assertEquals(trainee,result);
+        boolean expected = trainingHub.getTraineesFromCenter().size() > 0;
+        Assertions.assertTrue(expected);
+
     }
 }
 
- */
