@@ -16,13 +16,4 @@ public class WaitingList {
             e.printStackTrace();
         }
     }
-
-    public void deleteWaitingList(Trainee trainee)
-    {
-        try {
-            this.waitingList.remove(trainee);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
