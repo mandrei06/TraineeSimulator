@@ -8,7 +8,7 @@ public class TraineeDisplay {
 
     public static void tranieeDisplay(int month, int openCenters, int bootCamp, int techCenter, int trainingHub, /*int fullCenters, int numberOfTrainees,*/ int list, int bench) {
 
-        System.out.println("\n\nAt the end of of month " + month +
+        System.out.println("\n\nAt the end of month " + month +
                 "\n\nThe total centres opened: " + openCenters +
                 "\nNumber of Boot Camps: " + bootCamp +
                 "\nNumber of Tech Centers: " + techCenter +
