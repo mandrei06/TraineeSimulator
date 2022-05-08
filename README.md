@@ -7,7 +7,7 @@ Our team have been asked to build a simulator which will help track the number o
 - The tracker needs to be able to track time in a consistent way.
 - The program starts by asking how long the simulation will run for (for example, how many months).
 - Every month, a random number of trainees are generated, wanting to be trained (50 - 100).
-- Every 2 months, Sparta Global opens training centres; they open instantly and can take trainees every month.
+- Every month, Sparta Global opens training centres; they open instantly and can take trainees every month.
 - A centre can train a max of 100 trainees and takes a random number of trainees every month (0 - 50 trainees up to their capacity).
 - If a centre is full, trainees can be moved to any other centre which is not full.
 - If all centres are full, the trainees go onto a waiting list; this list must be served first before new trainees are taken.
