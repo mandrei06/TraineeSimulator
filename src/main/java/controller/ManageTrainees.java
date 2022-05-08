@@ -1,5 +1,6 @@
 package controller;
 
+import display.TraineeDisplay;
 import model.*;
 
 import java.util.Iterator;
@@ -99,9 +100,9 @@ public class ManageTrainees {
                 // (when we generate a new trainee we put them inside this list)
                 iterator.remove();
             }
-
+            int list = wl.getWaitingList().size();
             System.out.println("new hires list " + t.getTrainees().size());
-            System.out.println("waiting list " + wl.getWaitingList().size());
+            System.out.println("Waiting list " + list);
             System.out.println("new capacity: " + trainingCentre.getCapacity());
         }
     }
@@ -115,10 +116,10 @@ public class ManageTrainees {
 
         // starting from 1st month
         for(int i = 1; i <= months; i++) {
-            System.out.println("month " + i + " started");
+            System.out.println("Month " + i + " started");
             // generating new hires (between 50-100)
             int newHires = gn.generateRandomNumber(50, 101);
-            System.out.println("new hires " + newHires);
+            System.out.println("New hires " + newHires);
 
             // generating random employees based on the newHires number generated
             // and putting them into a list
@@ -146,7 +147,7 @@ public class ManageTrainees {
             }
             // generating random number (0-50) of trainees going into each center
             int traineesGoingIntoEachCentre = gn.generateRandomNumber(0, 51);
-            System.out.println("traineesGoingIntoEachCentre " + traineesGoingIntoEachCentre);
+            System.out.println("Trainees Going Into Each Centre " + traineesGoingIntoEachCentre);
 
             // looping through every training centres
             for(int j = 0; j < tc.getTrainingCentres().size(); j++) {
@@ -195,16 +196,16 @@ public class ManageTrainees {
                 if(trainingCentre instanceof BootCamp && !trainingCentre.isClosed()
                 && trainingCentre.getLowAttendance() > 3) {
                     trainingClosed(priorityWaitingListBootcamp, trainingCentre, wl);
-                    System.out.println("bootcamp closed");
+                    System.out.println("Bootcamp closed");
                 }
                 // closing any other training centres after 1 month of low attendance
                 if(!trainingCentre.isClosed() && trainingCentre.getLowAttendance() > 1) {
                     trainingClosed(priorityWaitingList, trainingCentre, wl);
 
                     if(trainingCentre instanceof TechCentre) {
-                        System.out.println("tech centre closed");
+                        System.out.println("Tech centre closed");
                     } else {
-                        System.out.println("training hub closed");
+                        System.out.println("Training hub closed");
                     }
                 }
                 // we let a month pass and then increase the months
@@ -227,9 +228,9 @@ public class ManageTrainees {
                         countTraineesToBench++;
                     }
                 }
-                System.out.println("trainee" + (countTraineesToBench == 0 || countTraineesToBench >
-                        1 ? "s: " : " ") + countTraineesToBench + " went to bench");
-                System.out.println("bench " + t.getBench().size());
+                System.out.println("Number of Trainee going to the bench:" + (countTraineesToBench == 0 || countTraineesToBench >
+                        1 ? "s: " : " ") + countTraineesToBench);
+                System.out.println("Bench " + t.getBench().size());
             }
             System.out.println("month " + i + " ended");
 
@@ -359,6 +360,12 @@ public class ManageTrainees {
                 System.out.println("we have training hub" +
                         (trainingHubClosed == 0 || trainingHubClosed > 1 ? "s: ": ": ")
                         + trainingHubClosed + " closed");
+                int toalCentersOpen = bootcamp + techCenter + trainingHub;
+                TraineeDisplay display = new TraineeDisplay();
+
+                int list = wl.getWaitingList().size();
+                int bench = t.getBench().size();
+                display.tranieeDisplay(months, toalCentersOpen, bootcamp, techCenter, trainingHub, list,bench );
             }
         }
     }

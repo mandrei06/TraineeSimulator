@@ -9,7 +9,8 @@ public class UserInput {
     public int askMonths() {
         int months = 0;
         try {
-            System.out.println("choose how many months you want to simulate");
+            System.out.println("Welcome to the sparta simulator" +
+                    "\nHow many months would you like to simulate");
             months = scanner.nextInt();
             boolean rightInput = false;
 
@@ -18,9 +19,9 @@ public class UserInput {
                 if(months > 0) {
                     return months;
                 } else {
-                    System.out.println("you need to enter a number of months > 0");
+                    System.out.println("You need to enter a number of months > 0");
                 }
-                System.out.println("choose how many months you want to simulate");
+                System.out.println("Choose how many months you want to simulate");
                 months = scanner.nextInt();
             }
         } catch (InputMismatchException e) {
