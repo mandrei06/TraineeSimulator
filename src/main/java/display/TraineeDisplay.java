@@ -6,17 +6,21 @@ import java.util.Scanner;
 public class TraineeDisplay {
 
 
-    public static void tranieeDisplay(int month, int openCenters, int bootCamp, int techCenter, int trainingHub, /*int fullCenters, int numberOfTrainees,*/ int list, int bench) {
+    public static void tranieeDisplay(int month, int openCenters, int bootCamp, int techCenter,
+                                      int trainingHub, /*int fullCenters, int numberOfTrainees,*/ int list, int bench,
+                                      int countHappyClients, int countUnHappyClients) {
 
         System.out.println("\n\nAt the end of month " + month +
-                "\n\nThe total centres opened: " + openCenters +
+                "\nThe total centres opened: " + openCenters +
                 "\nNumber of Boot Camps: " + bootCamp +
                 "\nNumber of Tech Centers: " + techCenter +
                 "\nNumber of Training Hub: " + trainingHub +
                 //"\nNumber of full centres: " + fullCenters +
-             //   "\nNumber of trainees currently training: " + numberOfTrainees +
+                //   "\nNumber of trainees currently training: " + numberOfTrainees +
                 "\nNumber of trainees on the waiting list: " + list +
-                "\nNumber of trainees on the bench: " + bench);
+                "\nNumber of trainees on the bench: " + bench +
+                "\nNumber of Happy Clients: " + countHappyClients +
+                "\nNumber of Unhappy Clients" + countUnHappyClients);
     }
 
     public static boolean monthlyReport() {
@@ -49,6 +53,56 @@ public class TraineeDisplay {
         }
         return monthlyReport;
     }
+
+    public static void NewClinets(int newClients) {
+        System.out.println("\nNew client" + ((newClients == 0 || newClients
+                > 1) ? "s: " : ": ") + newClients);
+    }
+
+    public static void HappyClinets(int countHappyClients) {
+        System.out.println("Happy client" + ((countHappyClients == 0 || countHappyClients
+                > 1) ? "s: " : ": ") + countHappyClients);
+    }
+
+    public static void UnhappyClinets(int countUnhappyClients) {
+        System.out.println("Unhappy client" + ((countUnhappyClients == 0 ||
+                countUnhappyClients > 1) ? "s: " : ": ") + countUnhappyClients);
+    }
+
+    public static void bootcamp(int bootcamp) {
+        System.out.println("Bootcamp" +
+                (bootcamp == 0 || bootcamp > 1 ? "s: " : ": ") + bootcamp + " open");
+    }
+
+    public static void bootcampClosed(int bootcampClosed) {
+        System.out.println("we have bootcamp" +
+                (bootcampClosed == 0 || bootcampClosed > 1 ? "s: " : ": ")
+                + bootcampClosed + " closed");
+    }
+
+    public static void techCenter(int techCenter) {
+        System.out.println("we have tech centre" +
+                (techCenter == 0 || techCenter > 1 ? "s: " : ": ") + techCenter + " open");
+    }
+
+    public static void techCenterClosed(int techCenterClosed) {
+        System.out.println("we have tech centre" +
+                (techCenterClosed == 0 || techCenterClosed > 1 ? "s: " : ": ")
+                + techCenterClosed + " closed");
+    }
+
+    public static void trainingHub(int trainingHub) {
+        System.out.println("Training Hub open: " +
+                (trainingHub == 0 || trainingHub > 1 ? "s: " : ": ") + trainingHub);
+    }
+
+    public static void trainingHubClosed(int trainingHubClosed) {
+        System.out.println("Training Hub closed" +
+                (trainingHubClosed == 0 || trainingHubClosed > 1 ? "s: " : ": ")
+                + trainingHubClosed);
+    }
+
+
 }
 
 

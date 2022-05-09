@@ -339,33 +339,20 @@ public class ManageTrainees {
             }
             // end of simulation
             if(i == months) {
-                System.out.println("new client" + ((newClients == 0 || newClients
-                        > 1) ? "s: " : ": ") + newClients);
-                System.out.println("happy client" + ((countHappyClients == 0 || countHappyClients
-                        > 1) ? "s: " : ": ") + countHappyClients);
-                System.out.println("unhappy client" + ((countUnhappyClients == 0 ||
-                        countHappyClients > 1) ? "s: " : ": ") + countUnhappyClients);
-                System.out.println("we have bootcamp" +
-                        (bootcamp == 0 || bootcamp > 1 ? "s: ": ": ") + bootcamp + " open");
-                System.out.println("we have bootcamp" +
-                        (bootcampClosed == 0 || bootcampClosed > 1 ? "s: ": ": ")
-                        + bootcampClosed + " closed");
-                System.out.println("we have tech centre" +
-                        (techCenter == 0 || techCenter > 1 ? "s: ": ": ") + techCenter + " open");
-                System.out.println("we have tech centre" +
-                        (techCenterClosed == 0 || techCenterClosed > 1 ? "s: ": ": ")
-                        + techCenterClosed + " closed");
-                System.out.println("we have training hub" +
-                        (trainingHub == 0 || trainingHub > 1 ? "s: ": ": ") + trainingHub + " open");
-                System.out.println("we have training hub" +
-                        (trainingHubClosed == 0 || trainingHubClosed > 1 ? "s: ": ": ")
-                        + trainingHubClosed + " closed");
-                int toalCentersOpen = bootcamp + techCenter + trainingHub;
                 TraineeDisplay display = new TraineeDisplay();
-
+//                display.NewClinets(newClients);
+//                display.HappyClinets(countHappyClients);
+//                display.UnhappyClinets(countUnhappyClients);
+//                display.bootcamp(bootcamp);
+//                display.bootcampClosed(bootcampClosed);
+//                display.techCenter(techCenter);
+//                display.techCenterClosed(techCenterClosed);
+//                display.trainingHub(trainingHub);
+//                display.trainingHubClosed(trainingHubClosed);
+                int toalCentersOpen = bootcamp + techCenter + trainingHub;
                 int list = wl.getWaitingList().size();
                 int bench = t.getBench().size();
-                display.tranieeDisplay(months, toalCentersOpen, bootcamp, techCenter, trainingHub, list,bench );
+                display.tranieeDisplay(months, toalCentersOpen, bootcamp, techCenter, trainingHub, list,bench, countHappyClients, countUnhappyClients );
             }
         }
     }
