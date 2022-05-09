@@ -42,3 +42,13 @@ Our team have been asked to build a simulator which will help track the number o
 - A client will only take one type of trainee (Java, C#, Data, DevOps or Business).
 - If a client does not collect enough trainees from the bench within a year, they will leave unhappy.
 - If a client does collect enough trainees from the bench within a year, they will leave happy and return the next year with the same requirement.
+
+
+## Output 
+- At the end of the simulation the following is currently reported :
+	- Number of total centres
+	- Number of boot camps
+	- Number of tech centers 
+	- Number of Training Hub
+	- number of trainees on the waiting list (breakdown for each type)
+	- Number of trainees on the bench 
