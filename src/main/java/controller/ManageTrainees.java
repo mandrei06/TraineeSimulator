@@ -101,9 +101,9 @@ public class ManageTrainees {
                 iterator.remove();
             }
             int list = wl.getWaitingList().size();
-            System.out.println("new hires list " + t.getTrainees().size());
+            System.out.println("New hires list " + t.getTrainees().size());
             System.out.println("Waiting list " + list);
-            System.out.println("new capacity: " + trainingCentre.getCapacity());
+            System.out.println("New capacity: " + trainingCentre.getCapacity());
         }
     }
 
@@ -340,19 +340,13 @@ public class ManageTrainees {
             // end of simulation
             if(i == months) {
                 TraineeDisplay display = new TraineeDisplay();
-//                display.NewClinets(newClients);
-//                display.HappyClinets(countHappyClients);
-//                display.UnhappyClinets(countUnhappyClients);
-//                display.bootcamp(bootcamp);
-//                display.bootcampClosed(bootcampClosed);
-//                display.techCenter(techCenter);
-//                display.techCenterClosed(techCenterClosed);
-//                display.trainingHub(trainingHub);
-//                display.trainingHubClosed(trainingHubClosed);
                 int toalCentersOpen = bootcamp + techCenter + trainingHub;
                 int list = wl.getWaitingList().size();
                 int bench = t.getBench().size();
-                display.tranieeDisplay(months, toalCentersOpen, bootcamp, techCenter, trainingHub, list,bench, countHappyClients, countUnhappyClients );
+
+                display.tranieeDisplay(months, toalCentersOpen, techCenterClosed, bootcamp, bootcampClosed,
+                        techCenter, trainingHub, trainingHubClosed, list,bench, countHappyClients, countUnhappyClients );
+
             }
         }
     }

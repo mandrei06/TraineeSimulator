@@ -6,21 +6,24 @@ import java.util.Scanner;
 public class TraineeDisplay {
 
 
-    public static void tranieeDisplay(int month, int openCenters, int bootCamp, int techCenter,
-                                      int trainingHub, /*int fullCenters, int numberOfTrainees,*/ int list, int bench,
+    public static void tranieeDisplay(int month, int openCenters, int bootCamp, int bootCampClosed,int techCenter,int techCenterClosed,
+                                      int trainingHub, int trainingHubClosed, int list, int bench,
                                       int countHappyClients, int countUnHappyClients) {
 
         System.out.println("\n\nAt the end of month " + month +
                 "\nThe total centres opened: " + openCenters +
-                "\nNumber of Boot Camps: " + bootCamp +
-                "\nNumber of Tech Centers: " + techCenter +
-                "\nNumber of Training Hub: " + trainingHub +
-                //"\nNumber of full centres: " + fullCenters +
-                //   "\nNumber of trainees currently training: " + numberOfTrainees +
+                "\nNumber of Boot Camps currently open: " + bootCamp +
+                "\nNumber of Boot Camp closed:  " + bootCampClosed  +
+                "\nNumber of Tech Centers currently open: " + techCenter +
+                "\nNumber of Tech Centers closed: " + techCenterClosed +
+                "\nNumber of Training Hub currently open: " + trainingHub +
+                "\nNumber of Training Hub closed: " + trainingHubClosed +
                 "\nNumber of trainees on the waiting list: " + list +
                 "\nNumber of trainees on the bench: " + bench +
                 "\nNumber of Happy Clients: " + countHappyClients +
-                "\nNumber of Unhappy Clients" + countUnHappyClients);
+                "\nNumber of Unhappy Clients: " + countUnHappyClients);
+
+
     }
 
     public static boolean monthlyReport() {
